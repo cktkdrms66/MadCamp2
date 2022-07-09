@@ -28,16 +28,25 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/step1_txt_count_down"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_weight="1"
             android:gravity="center"
             android:text="0"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/step1_txt_total_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0 / 7"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,6 +72,7 @@
                 android:id="@+id/step1_plug_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="0"
                 android:text="+" />
 
@@ -70,6 +80,7 @@
                 android:id="@+id/step1_minus_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="0"
                 android:text="-" />
         </LinearLayout>
@@ -82,23 +93,29 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/game_step1_txt_rock_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0"/>
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
 
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/icon_rock"
-                app:civ_border_width="2dp"
                 app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -107,20 +124,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/game_step1_txt_scissor_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0"/>
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
 
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/icon_scissor"
-                app:civ_border_width="2dp"
                 app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -129,20 +151,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/game_step1_txt_paper_count"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0"/>
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
 
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:src="@drawable/icon_paper"
-                app:civ_border_width="2dp"
                 app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>

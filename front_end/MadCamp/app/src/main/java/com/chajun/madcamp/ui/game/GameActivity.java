@@ -18,6 +18,7 @@ import com.chajun.madcamp.data.AppData;
 import com.chajun.madcamp.data.model.response.User;
 import com.chajun.madcamp.data.repository.Repository;
 import com.chajun.madcamp.ui.game.fragments.GameStep1Fragment;
+import com.chajun.madcamp.ui.game.fragments.GameStep2Fragment;
 
 
 import java.util.Arrays;
@@ -33,6 +34,7 @@ import retrofit2.Response;
 public class GameActivity extends AppCompatActivity {
 
     private GameStep1Fragment fragment1 = new GameStep1Fragment();
+    private GameStep2Fragment fragment2 = new GameStep2Fragment();
     private FragmentManager fragmentManager = getSupportFragmentManager();
     int roomId;
 
@@ -88,5 +90,8 @@ public class GameActivity extends AppCompatActivity {
         }
     };
 
-
+    public void goStep2() {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.game_layout, fragment2).commitAllowingStateLoss();
+    }
 }

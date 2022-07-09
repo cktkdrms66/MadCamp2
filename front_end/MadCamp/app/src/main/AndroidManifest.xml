@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.game.GameStep1Activity" android:exported="true"/>
+        <activity android:name=".ui.game.GameActivity" android:exported="true"/>
         <activity android:name=".ui.main.AddRoomActivity" android:exported="true"/>
         <activity android:name=".ui.userinfo.UserInfoActivity" android:exported="true"/>
     </application>

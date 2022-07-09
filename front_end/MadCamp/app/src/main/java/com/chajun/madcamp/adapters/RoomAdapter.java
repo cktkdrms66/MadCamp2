@@ -19,15 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.config.IntentKey;
 import com.chajun.madcamp.data.AppData;
-import com.chajun.madcamp.data.model.request.AddRoomRequest;
 import com.chajun.madcamp.data.model.request.JoinRoomRequest;
 import com.chajun.madcamp.data.model.response.JoinRoomResponse;
 import com.chajun.madcamp.data.repository.Repository;
 import com.chajun.madcamp.enums.GameState;
 import com.chajun.madcamp.data.model.response.Room;
-import com.chajun.madcamp.ui.game.GameStep1Activity;
+import com.chajun.madcamp.ui.game.GameActivity;
 import com.chajun.madcamp.ui.main.MainActivity;
-import com.chajun.madcamp.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -123,7 +121,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
             public void onResponse(Call<JoinRoomResponse> call, Response<JoinRoomResponse> response) {
                 if (response.isSuccessful()) {
                     if (response.body().getSuccess() == 1) {
-                        Intent intent = new Intent(context, GameStep1Activity.class);
+                        Intent intent = new Intent(context, GameActivity.class);
                         intent.putExtra(IntentKey.ROOM_ID, request.getRoomId());
                         context.startActivity(intent);
                     } else {

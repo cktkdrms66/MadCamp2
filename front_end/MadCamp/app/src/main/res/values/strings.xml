@@ -12,4 +12,6 @@
     <string name="prevent_join_room">방에 들어갈 수 없습니다</string>
     <string name="list_refresh_error">리스트 불러오기에 실패했습니다</string>
     <string name="user_info_error">유저 정보 불러오기에 실패했습니다</string>
+    <string name="enemy_state_waiting">선택중...</string>
+    <string name="enemy_state_ready">준비 완료</string>
 </resources>

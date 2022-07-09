@@ -21,7 +21,7 @@ import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.data.model.request.AddRoomRequest;
 import com.chajun.madcamp.data.model.response.AddRoomResponse;
 import com.chajun.madcamp.data.repository.Repository;
-import com.chajun.madcamp.ui.game.GameStep1Activity;
+import com.chajun.madcamp.ui.game.GameActivity;
 import com.chajun.madcamp.util.Util;
 
 import java.util.ArrayList;
@@ -117,9 +117,10 @@ public class AddRoomActivity extends AppCompatActivity {
                             public void onResponse(Call<AddRoomResponse> call, Response<AddRoomResponse> response) {
                                 try {
                                     if (response.isSuccessful()) {
-                                        Intent intent = new Intent(AddRoomActivity.this, GameStep1Activity.class);
+                                        AppData.userId = 2;
+                                        Intent intent = new Intent(AddRoomActivity.this, GameActivity.class);
                                         intent.putExtra(IntentKey.ROOM_ID, response.body().getId());
-                                        startActivity(new Intent(AddRoomActivity.this, GameStep1Activity.class));
+                                        startActivity(intent);
                                         finish();
                                     } else {
                                         throw new Exception();

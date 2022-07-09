@@ -1,5 +1,8 @@
 package com.chajun.madcamp.config;
 
 public class SocketMsg {
-    public static String START_GAME = "startGame";
+    public final static String JOIN_ROOM = "joinRoom";
+    public final static String START_GAME = "startGame";
+
+
 }

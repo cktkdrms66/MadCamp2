@@ -27,21 +27,6 @@ public class HomeFragment extends Fragment {
 
     private Button randomMatchStartBtn;
     private Button myInfoBtn;
-    Socket socket;
-
-    private final Emitter.Listener onConnect = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            System.out.println("connect good!!!");
-        }
-    };
-
-    private final Emitter.Listener onStartGame = new Emitter.Listener() {
-        @Override
-        public void call(Object... args) {
-            System.out.println("qweqwejqwipejeipfjpwejfi");
-        }
-    };
 
     @Nullable
     @Override
@@ -65,20 +50,9 @@ public class HomeFragment extends Fragment {
         myInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(HomeFragment.this.getActivity(), UserInfoActivity.class);
-//                intent.putExtra(IntentKey.USER_ID, AppData.userId);
-//                startActivity(intent);
-                try {
-                    socket = IO.socket(Constant.BASE_URL);
-                    socket.on(io.socket.client.Socket.EVENT_CONNECT, onConnect);
-
-                    socket.on(SocketMsg.START_GAME, onStartGame);
-                    socket.connect();
-
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
-
+                Intent intent = new Intent(HomeFragment.this.getActivity(), UserInfoActivity.class);
+                intent.putExtra(IntentKey.USER_ID, AppData.userId);
+                startActivity(intent);
             }
         });
     }

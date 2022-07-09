@@ -1,0 +1,171 @@
+package com.chajun.madcamp.adapters;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.graphics.Color;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chajun.madcamp.R;
+import com.chajun.madcamp.data.model.response.GameHistory;
+import com.chajun.madcamp.enums.GameResult;
+import com.chajun.madcamp.enums.Move;
+import com.chajun.madcamp.logic.GameAlgorithm;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
+
+public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.GameHistoryViewHolder>{
+
+    private List<GameHistory> gameHistoryList;
+    private int userId;
+
+    public GameHistoryAdapter(int userId) {
+        gameHistoryList = new ArrayList<>();
+        this.userId  = userId;
+    }
+
+    public void setItems(List<GameHistory> items) {
+        gameHistoryList = items;
+        notifyDataSetChanged();
+    }
+
+    @NonNull
+    @Override
+    public GameHistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.list_item_game_history, parent, false);
+        return new GameHistoryViewHolder(context, view);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onBindViewHolder(@NonNull GameHistoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        GameHistory gameHistory = gameHistoryList.get(position);
+
+        boolean isHost = userId == gameHistory.getHostId();
+        List<Move> hostMoves;
+        List<Move> guestMoves;
+
+        if (isHost) {
+            holder.hostLayout.setBackgroundResource(R.color.teal_700);
+            holder.guestLayout.setBackgroundColor(Color.WHITE);
+            hostMoves = GameAlgorithm.convertStrToMoves(gameHistory.getHostMoves());
+            guestMoves = GameAlgorithm.convertStrToMoves(gameHistory.getGuestMoves());
+        } else {
+            holder.hostLayout.setBackgroundColor(Color.WHITE);
+            holder.guestLayout.setBackgroundResource(R.color.teal_700);
+            hostMoves = GameAlgorithm.convertStrToMoves(gameHistory.getGuestMoves());
+            guestMoves = GameAlgorithm.convertStrToMoves(gameHistory.getHostMoves());
+        }
+
+        List<GameResult> gameResults = new ArrayList<>();
+
+        List<Move> myMoves = isHost ? hostMoves : guestMoves;
+        List<Move> enemyMoves = isHost ? guestMoves : hostMoves;
+        for (int i = 0; i < hostMoves.size(); i++) {
+
+            gameResults.add(GameAlgorithm.getGameResult(myMoves.get(i), enemyMoves.get(i), false));
+        }
+
+        int winCount = gameResults.stream().filter(v -> v == GameResult.W).collect(Collectors.toList()).size();
+        int loseCount = gameResults.stream().filter(v -> v == GameResult.L).collect(Collectors.toList()).size();
+
+        GameResult gameResult;
+        if (winCount > loseCount) {
+            gameResult = GameResult.W;
+            holder.gameResultTxt.setBackgroundResource(R.color.win);
+        }
+        else if (winCount == loseCount) {
+            gameResult = GameResult.T;
+            holder.gameResultTxt.setBackgroundResource(R.color.tie);
+        }
+        else {
+            gameResult = GameResult.L;
+            holder.gameResultTxt.setBackgroundResource(R.color.loss);
+        }
+
+        holder.gameResultTxt.setText(gameResult.toString());
+
+        LayoutInflater inflater = (LayoutInflater) holder.itemView.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        holder.hostLayout.removeAllViews();
+        holder.guestLayout.removeAllViews();
+
+        for (int i = 0; i < hostMoves.size(); i++) {
+            View hostMoveView = inflater.inflate(R.layout.item_move, null, false);
+            View guestMoveView = inflater.inflate(R.layout.item_move, null, false);
+
+
+            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(hostMoves.get(i).getDrawableId());
+            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestMoves.get(i).getDrawableId());
+
+            GameResult turnResult = GameAlgorithm.getGameResult(hostMoves.get(i), guestMoves.get(i), false);
+
+            if (turnResult == GameResult.W) {
+                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.BLUE);
+            } else if (turnResult == GameResult.L) {
+                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.BLUE);
+            } else {
+                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.GREEN);
+                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.GREEN);
+            }
+
+            holder.hostLayout.addView(hostMoveView);
+            holder.guestLayout.addView(guestMoveView);
+
+        }
+
+        List<Move> hostUnusedMoves = GameAlgorithm.convertStrToMoves(gameHistory.getHostUnusedMoves());
+        List<Move> guestUnusedMoves = GameAlgorithm.convertStrToMoves(gameHistory.getGuestUnusedMoves());
+        for (int i = 0; i < hostUnusedMoves.size(); i++) {
+            View hostMoveView = inflater.inflate(R.layout.item_move, null, false);
+            View guestMoveView = inflater.inflate(R.layout.item_move, null, false);
+
+            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(hostUnusedMoves.get(i).getDrawableId());
+            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestUnusedMoves.get(i).getDrawableId());
+
+            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.RED);
+            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.RED);
+
+            holder.hostLayout.addView(hostMoveView);
+            holder.guestLayout.addView(guestMoveView);
+
+        }
+
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return gameHistoryList.size();
+    }
+
+    public class GameHistoryViewHolder extends RecyclerView.ViewHolder {
+
+        TextView gameResultTxt;
+        ViewGroup background;
+        LinearLayout hostLayout;
+        LinearLayout guestLayout;
+
+        GameHistoryViewHolder(Context context, View itemView) {
+            super(itemView);
+
+            gameResultTxt = itemView.findViewById(R.id.list_item_game_history_txt_result);
+            background = itemView.findViewById(R.id.list_item_game_history_layout);
+            hostLayout = itemView.findViewById(R.id.list_item_game_history_layout_host);
+            guestLayout = itemView.findViewById(R.id.list_item_game_history_layout_guest);
+        }
+    }
+}

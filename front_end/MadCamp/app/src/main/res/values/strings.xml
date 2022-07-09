@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MadCamp</string>
+    <string name="confirm">네</string>
+    <string name="cancel">아니오</string>
+    <string name="menu_home">home</string>
+    <string name="menu_room">rooms</string>
+    <string name="menu_rank">rank</string>
+    <string name="my_info">내 정보</string>
+    <string name="random_match_start">랜덤 매치</string>
+    <string name="add_room">방 만들기</string>
+    <string name="add_room_error">방 만들기에 실패했습니다</string>
+    <string name="prevent_join_room">방에 들어갈 수 없습니다</string>
+    <string name="list_refresh_error">리스트 불러오기에 실패했습니다</string>
+    <string name="user_info_error">유저 정보 불러오기에 실패했습니다</string>
+</resources>

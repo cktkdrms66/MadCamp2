@@ -9,6 +9,20 @@ public enum Move {
 
     Move(int index) { this.index = index; }
 
+    public static Move getMove(int index) {
+        switch (index) {
+            case 0:
+                return R;
+            case 1:
+                return S;
+            case 2:
+                return P;
+        }
+
+        //TODO
+        return Move.MP;
+    }
+
     public int getDrawableId() {
         switch (this) {
             case R:

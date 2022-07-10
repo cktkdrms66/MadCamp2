@@ -16,12 +16,14 @@ import io.socket.emitter.Emitter;
 
 public class GameInfo {
 
+    public int roomId;
     public boolean isHost;
     public int[] myMoveCounts;
     public int[] enemyMoveCounts;
     public GameType gameType = GameType.N;
     public int currentTurn = 0;
     public int totalTurn = 4;
+    public int totalDeck = 7;
 
     public Socket socket;
 
@@ -56,7 +58,11 @@ public class GameInfo {
             socket.disconnect();
         }
     }
-    public void init(int[] moveCounts) {
+    public void init1(boolean isHost, int roomId) {
+        this.isHost = isHost;
+        this.roomId = roomId;
+    }
+    public void init2(int[] moveCounts) {
         myMoves = new ArrayList<>();
         enemyMoves = new ArrayList<>();
         gameResults = new ArrayList<>();

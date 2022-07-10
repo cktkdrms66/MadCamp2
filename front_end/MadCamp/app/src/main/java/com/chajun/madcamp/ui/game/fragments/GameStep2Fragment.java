@@ -1,10 +1,12 @@
 package com.chajun.madcamp.ui.game.fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,11 +19,17 @@ import com.chajun.madcamp.R;
 import com.chajun.madcamp.config.Constant;
 import com.chajun.madcamp.config.SocketMsg;
 import com.chajun.madcamp.data.AppData;
+import com.chajun.madcamp.data.model.request.GameCompleteRequest;
+import com.chajun.madcamp.data.model.request.JoinRoomRequest;
+import com.chajun.madcamp.data.model.response.GameCompleteResponse;
+import com.chajun.madcamp.data.repository.Repository;
 import com.chajun.madcamp.enums.GameResult;
 import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.enums.Move;
+import com.chajun.madcamp.logic.GameAlgorithm;
 import com.chajun.madcamp.logic.GameInfo;
 import com.chajun.madcamp.ui.game.GameActivity;
+import com.chajun.madcamp.ui.main.MainActivity;
 import com.chajun.madcamp.util.Util;
 
 import org.json.JSONArray;
@@ -38,6 +46,9 @@ import java.util.TimerTask;
 
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class GameStep2Fragment extends Fragment {
@@ -119,6 +130,7 @@ public class GameStep2Fragment extends Fragment {
         GameInfo.getInstance().socket.on(SocketMsg.START_TURN, onStartTurn);
         GameInfo.getInstance().socket.on(SocketMsg.SUBMIT_MOVES, onSubmitMoves);
         GameInfo.getInstance().socket.on(SocketMsg.TURN_RESULT, onTurnResult);
+        GameInfo.getInstance().socket.on(SocketMsg.GAME_COMPLETE, onGameComplete);
 
         int[] moveCounts = GameInfo.getInstance().myMoveCounts;
         JSONObject object = new JSONObject();
@@ -287,6 +299,8 @@ public class GameStep2Fragment extends Fragment {
                     if (myIndex == 1) {
                         gameResultVal = ((int) args[2]) * (-1);
                     }
+                    GameInfo.getInstance().myMoves.add(currentMyMove);
+                    GameInfo.getInstance().enemyMoves.add(currentEnemyMove);
                     GameInfo.getInstance().gameResults.add(GameResult.getGameResult(gameResultVal));
 
                     gameResultImgs[GameInfo.getInstance().currentTurn - 1]
@@ -314,6 +328,110 @@ public class GameStep2Fragment extends Fragment {
                 }
             });
 
+
+
+        }
+    };
+
+    private final Emitter.Listener onGameComplete = new Emitter.Listener() {
+        @Override
+        public void call(Object... args) {
+
+
+            GameActivity.context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("game complete");
+
+                    GameInfo.getInstance().disconnectSocket();
+
+                    int gameResult = 0;
+                    int ratingChange = 0;
+
+                    GameInfo gameInfo = GameInfo.getInstance();
+
+                    for (int i = 0; i < gameInfo.gameResults.size(); i++) {
+                        gameResult += gameInfo.gameResults.get(i).val;
+                    }
+
+                    ratingChange = gameResult * 10;
+
+                    if (gameResult > 0) gameResult = 1;
+                    else if (gameResult == 0) gameResult = 0;
+                    else gameResult = -1;
+
+                    //this.hostUnusedMoves = hostUnusedMoves;
+                    //        this.guestUnusedMoves = guestUnusedMoves;
+                    //
+                    List<Move> hostUnusedMoves = new ArrayList<>();
+                    List<Move> guestUnusedMoves = new ArrayList<>();
+
+                    for (int i = 0; i < gameInfo.myMoveCounts.length; i++) {
+                        System.out.println("myMoveCounts " + i + " " + gameInfo.myMoveCounts[i]);
+                        System.out.println("enemyMoveCounts " + i + " " + gameInfo.enemyMoveCounts[i]);
+                        for (int j = 0; j < gameInfo.myMoveCounts[i]; j++) {
+                            hostUnusedMoves.add(Move.getMove(i));
+                        }
+                        for (int j = 0; j < gameInfo.enemyMoveCounts[i]; j++) {
+                            guestUnusedMoves.add(Move.getMove(i));
+                        }
+                    }
+
+                    if (GameInfo.getInstance().isHost) {
+                        System.out.println("host가 보냅니다");
+                        System.out.println(GameAlgorithm.convertMovesToStr(gameInfo.myMoves) + "\n" +
+                                GameAlgorithm.convertMovesToStr(gameInfo.enemyMoves) + "\n" +
+                                GameAlgorithm.convertMovesToStr(hostUnusedMoves) + "\n" +
+                                GameAlgorithm.convertMovesToStr(guestUnusedMoves));
+                        Repository.getInstance().completeGame(new GameCompleteRequest(
+                                gameInfo.roomId,
+                                AppData.userId,
+                                (int) args[0],
+                                gameResult,
+                                ratingChange,
+                                gameInfo.totalTurn,
+                                gameInfo.gameType.toString(),
+                                gameInfo.totalDeck,
+                                GameAlgorithm.convertMovesToStr(gameInfo.myMoves),
+                                GameAlgorithm.convertMovesToStr(gameInfo.enemyMoves),
+                                GameAlgorithm.convertMovesToStr(hostUnusedMoves),
+                                GameAlgorithm.convertMovesToStr(guestUnusedMoves)
+                        ), new Callback<GameCompleteResponse>() {
+                            @Override
+                            public void onResponse(Call<GameCompleteResponse> call, Response<GameCompleteResponse> response) {
+                                System.out.println("game 기록 완료");
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<GameCompleteResponse> call, Throwable t) {
+
+                            }
+                        });
+
+                    }
+
+                    Dialog dialog;
+                    dialog = new Dialog(GameActivity.context);
+                    dialog.setContentView(R.layout.dialog_game_result);
+
+                    String ratingStr = ratingChange >= 0 ? "+" + ratingChange : String.valueOf(ratingChange);
+
+                    ((TextView) dialog.findViewById(R.id.dialog_game_result_title)).setText(GameResult.getGameResult(gameResult).getStringId());
+                    ((TextView) dialog.findViewById(R.id.dialog_game_result_my_score)).setText(String.valueOf((int) args[GameInfo.getInstance().isHost ? 1 : 2]));
+                    ((TextView) dialog.findViewById(R.id.dialog_game_result_plus_score)).setText(ratingStr);
+                    dialog.findViewById(R.id.dialog_game_result_confirm).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                            GameActivity.context.finish();
+                        }
+                    });
+
+                    dialog.show();
+
+                }
+            });
 
 
         }

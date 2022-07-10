@@ -1,6 +1,8 @@
 package com.chajun.madcamp.data.repository;
 
+import com.chajun.madcamp.data.model.request.GameCompleteRequest;
 import com.chajun.madcamp.data.model.request.JoinRoomRequest;
+import com.chajun.madcamp.data.model.response.GameCompleteResponse;
 import com.chajun.madcamp.data.model.response.JoinRoomResponse;
 import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.data.model.request.AddRoomRequest;
@@ -51,6 +53,11 @@ public class Repository {
 
     public void getGameHistoryList(int userId, Callback<List<GameHistory>> callback) {
         Call<List<GameHistory>> call = RetrofitClient.getApiService().getGameHistoryList(userId);
+        call.enqueue(callback);
+    }
+
+    public void completeGame(GameCompleteRequest request, Callback<GameCompleteResponse> callback) {
+        Call<GameCompleteResponse> call = RetrofitClient.getApiService().completeGame(request);
         call.enqueue(callback);
     }
 }

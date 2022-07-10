@@ -18,5 +18,6 @@
     <string name="win">승리</string>
     <string name="loss">패배</string>
     <string name="tie">무승부</string>
+    <string name="my_score">내 점수</string>
 
 </resources>

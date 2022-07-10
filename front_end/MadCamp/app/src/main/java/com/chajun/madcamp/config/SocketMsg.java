@@ -11,5 +11,6 @@ public class SocketMsg {
     public final static String SUBMIT_MOVES = "submitMoves";
     public final static String COMPARE_START = "compareStart";
     public final static String TURN_RESULT = "turnResult";
+    public final static String GAME_COMPLETE = "gameComplete";
 
 }

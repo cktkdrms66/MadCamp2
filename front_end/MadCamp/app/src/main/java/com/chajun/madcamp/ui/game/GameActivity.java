@@ -56,7 +56,9 @@ public class GameActivity extends AppCompatActivity {
 
             initViews();
             try {
-                GameInfo.getInstance().isHost = getIntent().getBooleanExtra(IntentKey.IS_HOST, false);
+                boolean isHost = getIntent().getBooleanExtra(IntentKey.IS_HOST, false);
+                GameInfo.getInstance().init1(isHost,
+                        roomId);
                 GameInfo.getInstance().connectSocket(onConnect);
 
             } catch (Exception e) {
@@ -87,7 +89,7 @@ public class GameActivity extends AppCompatActivity {
     };
 
     public void goStep2(int[] moveCounts) {
-        GameInfo.getInstance().init(moveCounts);
+        GameInfo.getInstance().init2(moveCounts);
         for (int i = 0; i < moveCounts.length; i++) {
             System.out.println(AppData.userId + " moveCounts " + i + " " + moveCounts[i]);
         }

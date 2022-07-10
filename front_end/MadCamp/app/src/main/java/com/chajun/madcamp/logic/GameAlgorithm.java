@@ -33,11 +33,11 @@ public class GameAlgorithm {
     }
 
     public static String convertMovesToStr(List<Move> moves) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (int i = 0; i < moves.size(); i++) {
-            result = moves.get(i).toString() + " ";
+            result.append(moves.get(i).toString()).append(" ");
         }
-        return result.trim();
+        return result.toString().trim();
     }
 
 

@@ -1,8 +1,10 @@
 package com.chajun.madcamp.data.retrofit;
 
 import com.chajun.madcamp.data.model.request.AddRoomRequest;
+import com.chajun.madcamp.data.model.request.GameCompleteRequest;
 import com.chajun.madcamp.data.model.request.JoinRoomRequest;
 import com.chajun.madcamp.data.model.response.AddRoomResponse;
+import com.chajun.madcamp.data.model.response.GameCompleteResponse;
 import com.chajun.madcamp.data.model.response.GameHistory;
 import com.chajun.madcamp.data.model.response.JoinRoomResponse;
 import com.chajun.madcamp.data.model.response.Room;
@@ -35,5 +37,8 @@ public interface RetrofitAPI {
 
     @GET("record/list")
     Call<List<GameHistory>> getGameHistoryList(@Query("id") int userId);
+
+    @POST("game/complete")
+    Call<GameCompleteResponse> completeGame(@Body GameCompleteRequest request);
 
 }

@@ -9,10 +9,12 @@
         <entry key="app/src/main/res/drawable/icon_rock.xml" value="0.151" />
         <entry key="app/src/main/res/drawable/menu_item_color.xml" value="0.131" />
         <entry key="app/src/main/res/layout/activity_add_room.xml" value="0.40160642570281124" />
+        <entry key="app/src/main/res/layout/activity_game.xml" value="0.3052536231884058" />
         <entry key="app/src/main/res/layout/activity_game_step1.xml" value="0.16924031575520834" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3182291666666667" />
         <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.32455089820359284" />
-        <entry key="app/src/main/res/layout/dialog_password.xml" value="0.5051661173502604" />
+        <entry key="app/src/main/res/layout/big_item_move.xml" value="0.3052536231884058" />
+        <entry key="app/src/main/res/layout/dialog_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2872029622395833" />
         <entry key="app/src/main/res/layout/fragment_rank_list.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/fragment_room.xml" value="0.15625" />

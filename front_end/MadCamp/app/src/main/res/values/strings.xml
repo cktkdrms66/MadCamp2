@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MadCamp</string>
-    <string name="confirm">네</string>
-    <string name="cancel">아니오</string>
+    <string name="confirm">제출</string>
+    <string name="cancel">취소</string>
     <string name="menu_home">home</string>
     <string name="menu_room">rooms</string>
     <string name="menu_rank">rank</string>
@@ -18,5 +18,6 @@
     <string name="win">승리</string>
     <string name="loss">패배</string>
     <string name="tie">무승부</string>
+    <string name="password_dialog">비밀번호 입력:</string>
 
 </resources>

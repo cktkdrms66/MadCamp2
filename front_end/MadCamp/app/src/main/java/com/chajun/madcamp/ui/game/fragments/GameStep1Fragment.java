@@ -1,6 +1,5 @@
 package com.chajun.madcamp.ui.game.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,21 +14,22 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.adapters.GameStep1ViewPagerAdapter;
+import com.chajun.madcamp.config.Constant;
 import com.chajun.madcamp.config.SocketMsg;
 import com.chajun.madcamp.data.AppData;
 import com.chajun.madcamp.data.model.response.User;
 import com.chajun.madcamp.data.repository.Repository;
+import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.enums.Move;
+import com.chajun.madcamp.logic.GameInfo;
 import com.chajun.madcamp.ui.game.GameActivity;
-
-import org.w3c.dom.Text;
+import com.chajun.madcamp.util.Util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
 
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
@@ -55,10 +55,12 @@ public class GameStep1Fragment extends Fragment {
 
     private int totalDeckCount = 7;
     private int totalCount = 0;
+    private int[] moveCounts = new int[3];
 
     Socket socket;
     Timer timer;
-    int count = 3;
+    int countDown = Constant.BUILD_DECK_MAX_COUNT_DOWN;
+    private GameType gameType = GameType.N;
 
     @Nullable
     @Override
@@ -70,12 +72,12 @@ public class GameStep1Fragment extends Fragment {
 
         setButtons();
 
-        totalCountTxt.setText(totalCount  + " / " + totalDeckCount);
+        totalCountTxt.setText(Util.getTurnPerTotal(totalCount, totalDeckCount));
 
-        socket = GameActivity.context.socket;
+        socket = GameInfo.getInstance().socket;
 
         socket.on(SocketMsg.BUILD_DECK, onBuildDeck);
-        socket.on(SocketMsg.START_TURN, onStartTurn);
+        socket.on(SocketMsg.START_GAME, onStartGame);
 
         return v;
     }
@@ -104,16 +106,14 @@ public class GameStep1Fragment extends Fragment {
             public void onClick(View view) {
                 int pos = viewPager2.getCurrentItem();
 
-                int count = Integer.valueOf(moveCountTxts[pos].getText().toString());
-
-                if (count > 8 || totalCount == totalDeckCount) {
+                if (moveCounts[pos] > 8 || totalCount == totalDeckCount) {
                     return;
                 }
 
-                count++;
-                moveCountTxts[pos].setText(String.valueOf(count));
+                moveCounts[pos]++;
+                moveCountTxts[pos].setText(String.valueOf(moveCounts[pos]));
 
-                totalCountTxt.setText((++totalCount)+" / " + totalDeckCount);
+                totalCountTxt.setText(Util.getTurnPerTotal((++totalCount), totalDeckCount));
             }
         });
 
@@ -122,16 +122,14 @@ public class GameStep1Fragment extends Fragment {
             public void onClick(View view) {
                 int pos = viewPager2.getCurrentItem();
 
-                int count = Integer.valueOf(moveCountTxts[pos].getText().toString());
-
-                if (count == 0) {
+                if (moveCounts[pos] == 0) {
                     return;
                 }
 
-                count--;
-                moveCountTxts[pos].setText(String.valueOf(count));
+                moveCounts[pos]--;
+                moveCountTxts[pos].setText(String.valueOf(moveCounts[pos]));
 
-                totalCountTxt.setText((--totalCount)+" / " + totalDeckCount);
+                totalCountTxt.setText(Util.getTurnPerTotal((--totalCount), totalDeckCount));
             }
         });
     }
@@ -173,23 +171,23 @@ public class GameStep1Fragment extends Fragment {
                         User enemyUser = response.body();
                         enemyNameTxt.setText(enemyUser.getName());
                         enemyStateTxt.setText(R.string.enemy_state_waiting);
-                        countDownTxt.setText(String.valueOf(count));
+                        countDownTxt.setText(String.valueOf(countDown));
 
                         TimerTask task = new TimerTask() {
                             @Override
                             public void run() {
-                                if (count <= 0) {
-                                    timer.cancel();
-                                    timer = null;
-                                    return;
-                                }
-                                count--;
+                                countDown--;
                                 GameActivity.context.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        countDownTxt.setText(String.valueOf(count));
+                                        countDownTxt.setText(String.valueOf(countDown));
                                     }
                                 });
+
+                                if (countDown <= 0) {
+                                    timer.cancel();
+                                    timer = null;
+                                }
 
                             }
                         };
@@ -206,10 +204,24 @@ public class GameStep1Fragment extends Fragment {
         }
     };
 
-    private final Emitter.Listener onStartTurn = new Emitter.Listener() {
+    private final Emitter.Listener onStartGame = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            GameActivity.context.goStep2();
+            if (totalCount != totalDeckCount) {
+                Random random = new Random();
+                int moveMax = (gameType == GameType.N) ? 3 : 5;
+                for (int i = 0; i < totalDeckCount - totalCount; i++) {
+                    int moveIndex;
+                    do {
+                        moveIndex = random.nextInt(moveMax);
+                    } while (moveCounts[moveIndex] == totalDeckCount);
+
+                    moveCounts[moveIndex]++;
+
+                }
+            }
+
+            GameActivity.context.goStep2(moveCounts);
         }
     };
 

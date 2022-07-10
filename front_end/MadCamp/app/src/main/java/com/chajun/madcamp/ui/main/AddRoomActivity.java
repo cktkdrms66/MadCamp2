@@ -74,9 +74,8 @@ public class AddRoomActivity extends AppCompatActivity {
     }
     private void setGameTypeSpinner() {
         List<String> gameTypeList = new ArrayList<>();
-        gameTypeList.add("5턴 9덱 (일반 모드)");
-        gameTypeList.add("3턴 5덱 (확장 모드)");
-
+        gameTypeList.add("4턴 7덱 (일반 모드)");
+        gameTypeList.add("5턴 9덱 (확장 모드)");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item
                 , gameTypeList);
@@ -120,6 +119,7 @@ public class AddRoomActivity extends AppCompatActivity {
                                         AppData.userId = 2;
                                         Intent intent = new Intent(AddRoomActivity.this, GameActivity.class);
                                         intent.putExtra(IntentKey.ROOM_ID, response.body().getId());
+                                        intent.putExtra(IntentKey.IS_HOST, true);
                                         startActivity(intent);
                                         finish();
                                     } else {

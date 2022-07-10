@@ -14,4 +14,9 @@
     <string name="user_info_error">유저 정보 불러오기에 실패했습니다</string>
     <string name="enemy_state_waiting">선택중...</string>
     <string name="enemy_state_ready">준비 완료</string>
+    <string name="prevent_count_0_move">해당 카드를 모두 사용했습니다.</string>
+    <string name="win">승리</string>
+    <string name="loss">패배</string>
+    <string name="tie">무승부</string>
+
 </resources>

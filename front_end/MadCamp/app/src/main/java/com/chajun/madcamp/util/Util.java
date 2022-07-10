@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.ui.main.AddRoomActivity;
 
+import org.json.JSONArray;
+
 public class Util {
 
     public static void makeDialog(Context context, int stringId) {
@@ -32,5 +34,17 @@ public class Util {
             builder.create().show();
         }
 
+    }
+
+    public static String getTurnPerTotal(int currentTurn, int totalTurn) {
+        return currentTurn + " / " + totalTurn;
+    }
+
+    public static int[] JSonArray2IntArray(JSONArray jsonArray){
+        int[] intArray = new int[jsonArray.length()];
+        for (int i = 0; i < intArray.length; ++i) {
+            intArray[i] = jsonArray.optInt(i);
+        }
+        return intArray;
     }
 }

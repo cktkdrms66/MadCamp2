@@ -32,5 +32,13 @@ public class GameAlgorithm {
         return Arrays.stream(str.split(" ")).map(v -> Move.valueOf(v)).collect(Collectors.toList());
     }
 
+    public static String convertMovesToStr(List<Move> moves) {
+        String result = "";
+        for (int i = 0; i < moves.size(); i++) {
+            result = moves.get(i).toString() + " ";
+        }
+        return result.trim();
+    }
+
 
 }

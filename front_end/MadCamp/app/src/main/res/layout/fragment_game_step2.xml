@@ -1,6 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/icon_rock"
+                app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/teal_200">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <TextView
+                android:id="@+id/game_step2_txt_rock_count_enemy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/icon_scissor"
+                app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/teal_200">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <TextView
+                android:id="@+id/game_step2_txt_scissor_count_enemy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/icon_paper"
+                app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/teal_200">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <TextView
+                android:id="@+id/game_step2_txt_paper_count_enemy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/game_step2_img_move_enemy"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/questiomark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/game_step2_txt_countdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/game_step2_txt_turn_per_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textSize="30sp"
+            android:visibility="gone"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="10dp">
+            <ImageView
+                android:id="@+id/game_step2_img_game_result_0"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"/>
+            <ImageView
+                android:id="@+id/game_step2_img_game_result_1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"/>
+            <ImageView
+                android:id="@+id/game_step2_img_game_result_2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"/>
+            <ImageView
+                android:id="@+id/game_step2_img_game_result_3"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/game_step2_img_move_mine"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/questiomark" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/game_step2_my_rock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/game_step2_txt_rock_count_mine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/icon_rock"
+                app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/teal_200">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/game_step2_my_scissor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/game_step2_txt_scissor_count_mine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/icon_scissor"
+                app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/teal_200">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/game_step2_my_paper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/game_step2_txt_paper_count_mine"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:src="@drawable/icon_paper"
+                app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/teal_200">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

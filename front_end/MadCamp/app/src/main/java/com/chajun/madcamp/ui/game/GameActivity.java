@@ -17,6 +17,7 @@ import com.chajun.madcamp.config.SocketMsg;
 import com.chajun.madcamp.data.AppData;
 import com.chajun.madcamp.data.model.response.User;
 import com.chajun.madcamp.data.repository.Repository;
+import com.chajun.madcamp.logic.GameInfo;
 import com.chajun.madcamp.ui.game.fragments.GameStep1Fragment;
 import com.chajun.madcamp.ui.game.fragments.GameStep2Fragment;
 
@@ -40,8 +41,6 @@ public class GameActivity extends AppCompatActivity {
 
     public static GameActivity context;
 
-    public Socket socket;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,9 +56,8 @@ public class GameActivity extends AppCompatActivity {
 
             initViews();
             try {
-                socket = IO.socket(Constant.BASE_URL);
-                socket.on(io.socket.client.Socket.EVENT_CONNECT, onConnect);
-                socket.connect();
+                GameInfo.getInstance().isHost = getIntent().getBooleanExtra(IntentKey.IS_HOST, false);
+                GameInfo.getInstance().connectSocket(onConnect);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -69,9 +67,7 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        if (socket != null) {
-            socket.disconnect();
-        }
+        GameInfo.getInstance().disconnectSocket();
         super.onDestroy();
 
     }
@@ -86,11 +82,15 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void call(Object... args) {
             System.out.println("connect good!!!");
-            socket.emit(SocketMsg.JOIN_ROOM, roomId, AppData.userId);
+            GameInfo.getInstance().socket.emit(SocketMsg.JOIN_ROOM, roomId, AppData.userId);
         }
     };
 
-    public void goStep2() {
+    public void goStep2(int[] moveCounts) {
+        GameInfo.getInstance().init(moveCounts);
+        for (int i = 0; i < moveCounts.length; i++) {
+            System.out.println(AppData.userId + " moveCounts " + i + " " + moveCounts[i]);
+        }
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.game_layout, fragment2).commitAllowingStateLoss();
     }

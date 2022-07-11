@@ -5,7 +5,7 @@ public class Constant {
 //    public static final String BASE_URL = "http://172.10.18.163:443"; //NAT IP
     public static final String BASE_URL = "http://192.249.18.163:443"; //공인 IP
 
-    public final static int BUILD_DECK_MAX_COUNT_DOWN = 5;
-    public final static int TURN_MAX_COUNT_DOWN = 3;
+    public final static int BUILD_DECK_MAX_COUNT_DOWN = 10;
+    public final static int TURN_MAX_COUNT_DOWN = 10;
 
 }

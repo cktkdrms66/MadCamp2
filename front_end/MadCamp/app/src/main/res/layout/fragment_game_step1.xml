@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,16 +36,29 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="0"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
-        <TextView
-            android:id="@+id/step1_txt_total_count"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="0 / 7"
-            android:textSize="24sp" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Choose your deck: "
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/step1_txt_total_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="0 / 7"
+                android:textSize="24sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -60,7 +72,8 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/step1_viewpager2"
             android:layout_width="match_parent"
-            android:layout_height="300dp"></androidx.viewpager2.widget.ViewPager2>
+            android:layout_height="150dp"
+            android:layout_margin="-64dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

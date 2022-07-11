@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="20dp">
 
     <EditText
         android:id="@+id/add_room_edit_txt_title"
@@ -10,7 +12,16 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="@string/add_room_title" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_room_password" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +45,7 @@
     <Spinner
         android:id="@+id/add_room_spinner_game_type"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="40dp" />
 
     <Button
         android:id="@+id/add_room_btn_add"

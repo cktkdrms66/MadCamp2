@@ -45,7 +45,9 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <Button

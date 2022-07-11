@@ -43,7 +43,7 @@ public enum Move {
     }
 
     public int getOriginalIndex() {
-        if (this.index > 5) return this.index - 5;
+        if (this.index >= 5) return this.index - 5;
         else return this.index;
     }
 

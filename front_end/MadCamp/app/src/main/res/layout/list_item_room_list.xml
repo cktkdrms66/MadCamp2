@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="1dp"
             android:text="TextView"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="@color/purple_700"/>
 
         <TextView
             android:id="@+id/list_item_room_txt_game_type"

@@ -3,10 +3,18 @@ package com.chajun.madcamp.data.retrofit;
 import com.chajun.madcamp.data.model.request.AddRoomRequest;
 import com.chajun.madcamp.data.model.request.GameCompleteRequest;
 import com.chajun.madcamp.data.model.request.JoinRoomRequest;
+import com.chajun.madcamp.data.model.request.KakaoLoginRequest;
+import com.chajun.madcamp.data.model.request.NativeLoginRequest;
+import com.chajun.madcamp.data.model.request.NativeRegisterRequest;
+import com.chajun.madcamp.data.model.request.RandomMatchRequest;
 import com.chajun.madcamp.data.model.response.AddRoomResponse;
 import com.chajun.madcamp.data.model.response.GameCompleteResponse;
 import com.chajun.madcamp.data.model.response.GameHistory;
 import com.chajun.madcamp.data.model.response.JoinRoomResponse;
+import com.chajun.madcamp.data.model.response.KakaoLoginResponse;
+import com.chajun.madcamp.data.model.response.NativeLoginResponse;
+import com.chajun.madcamp.data.model.response.NativeRegisterResponse;
+import com.chajun.madcamp.data.model.response.RandomMatchResponse;
 import com.chajun.madcamp.data.model.response.Room;
 import com.chajun.madcamp.data.model.response.User;
 
@@ -40,5 +48,17 @@ public interface RetrofitAPI {
 
     @POST("game/complete")
     Call<GameCompleteResponse> completeGame(@Body GameCompleteRequest request);
+
+    @POST("user/login/native")
+    Call<NativeLoginResponse> loginNative(@Body NativeLoginRequest request);
+
+    @POST("user/register/native")
+    Call<NativeRegisterResponse> register(@Body NativeRegisterRequest request);
+
+    @POST("user/login/kakao")
+    Call<KakaoLoginResponse> loginKakao(@Body KakaoLoginRequest request);
+
+    @POST("room/random")
+    Call<RandomMatchResponse> randomMatch(@Body RandomMatchRequest request);
 
 }

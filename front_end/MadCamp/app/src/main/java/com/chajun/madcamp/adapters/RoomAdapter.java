@@ -63,6 +63,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     @Override
     public void onBindViewHolder(@NonNull RoomViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Room room = roomList.get(holder.getAdapterPosition());
+
+        System.out.println(room.getHidden());
+
         holder.roomNumberTxt.setText(String.valueOf(room.getRoomNumber()));
         holder.titleTxt.setText(room.getTitle());
         holder.gameTypeTxt.setText(room.getNumTurns() + "T " + room.getNumMoves() + "D");

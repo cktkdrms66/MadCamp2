@@ -9,7 +9,10 @@
     <string name="my_info">내 정보</string>
     <string name="random_match_start">랜덤 매치</string>
     <!--TODO: change this once DB supports Korean-->
-    <string name="add_room_title">Room title</string>
+    <string name="add_room_title_0">아무나</string>
+    <string name="add_room_title_1">드루와</string>
+    <string name="add_room_title_2">너만 오면 고</string>
+    <string name="add_room_title_3">고수만</string>
     <string name="add_room">방 만들기</string>
     <string name="add_room_password">(선택) 비밀번호 입력:</string>
     <string name="add_room_error">방 만들기에 실패했습니다</string>
@@ -20,6 +23,12 @@
     <string name="enemy_state_ready">준비 완료</string>
     <string name="prevent_count_0_move">해당 카드를 모두 사용했습니다.</string>
     <string name="win">승리</string>
+    <string name="login_error">로그인에 실패했습니다</string>
+    <string name="login_error_2">정보를 모두 입력해주세요</string>
+    <string name="register_error">회원가입에 실패했습니다</string>
+    <string name="register_error_2">정보를 모두 입력해주세요</string>
+    <string name="password_not_equal">비밀번호가 일치하지 않습니다</string>
+    <string name="register_success">회원가입에 성공했습니다</string>
     <string name="loss">패배</string>
     <string name="tie">무승부</string>
     <string name="my_score">내 점수:</string>
@@ -27,10 +36,12 @@
     <string name="boosting">메가 진화!</string>
     <!--TODO: change this once DB supports Korean-->
     <string name="username">Username</string>
+    <string name="email">E-mail</string>
     <string name="password_hint">Password</string>
     <string name="password_confirm_hint">Confirm Password</string>
     <string name="native_login">로그인</string>
     <string name="native_register">회원 가입</string>
     <string name="kakao_login">카카오 로그인</string>
-
+    <string name="join_enemy_1">상대방이 입장했습니다</string>
+    <string name="join_enemy_2">방에 입장했습니다</string>
 </resources>

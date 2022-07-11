@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         context = this;
-        KakaoSdk.init(this, Constant.kakaoNativeKey);
 
         initView();
         setBottomNav();

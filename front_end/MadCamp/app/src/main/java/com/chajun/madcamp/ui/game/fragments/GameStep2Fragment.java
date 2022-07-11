@@ -210,6 +210,11 @@ public class GameStep2Fragment extends Fragment {
 
 
                     myMoveImg.setImageResource(currentMyMove.getDrawableId());
+
+                    if (isBoosted) {
+                        boostingCountTxt.setText("1");
+                    }
+
                     isBoosted = false;
                 }
             });

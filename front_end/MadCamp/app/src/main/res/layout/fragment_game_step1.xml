@@ -15,13 +15,16 @@
             android:id="@+id/step1_txt_enemy_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text=""
+            android:textSize="24sp"
+            android:layout_margin="10dp"/>
 
         <TextView
             android:id="@+id/step1_txt_enemy_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:visibility="invisible"/>
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +65,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_margin="20dp"></androidx.viewpager2.widget.ViewPager2>
+            android:paddingStart="80dp"
+            android:paddingEnd="80dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

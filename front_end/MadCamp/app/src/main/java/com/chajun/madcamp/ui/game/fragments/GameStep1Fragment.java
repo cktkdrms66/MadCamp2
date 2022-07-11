@@ -6,10 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.CompositePageTransformer;
+import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.chajun.madcamp.R;
@@ -159,9 +163,23 @@ public class GameStep1Fragment extends Fragment {
     }
 
     private void setViewPager2() {
+        viewPager2.setOffscreenPageLimit(3);
         viewPager2.setClipToPadding(false);
+        viewPager2.setClipChildren(false);
+        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
 
-        viewPager2.setPadding(100, 0, 100, 0);
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(50));
+        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+
+        viewPager2.setPageTransformer(compositePageTransformer);
+
 
         List<Move> moveList = new ArrayList<>();
         moveList.add(Move.R);
@@ -173,6 +191,7 @@ public class GameStep1Fragment extends Fragment {
         }
 
         viewPager2.setAdapter(new GameStep1ViewPagerAdapter(moveList));
+        viewPager2.setCurrentItem(isExpanded ? 2 : 1);
     }
 
 
@@ -180,6 +199,18 @@ public class GameStep1Fragment extends Fragment {
     private final Emitter.Listener onBuildDeck = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
+
+            GameActivity.context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (GameInfo.getInstance().isHost) {
+                        Toast.makeText(GameActivity.context, R.string.join_enemy_1, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(GameActivity.context, R.string.join_enemy_2, Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
             System.out.println("build deck start!");
             System.out.println("mine :: " + AppData.userId);
             System.out.println("args :: 0 " + (int) args[0]);

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/add_room_title" />
+        android:text="@string/add_room_title_1" />
 
     <Space
         android:layout_width="match_parent"

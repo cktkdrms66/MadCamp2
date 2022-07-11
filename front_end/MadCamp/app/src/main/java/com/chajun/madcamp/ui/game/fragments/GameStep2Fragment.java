@@ -224,8 +224,10 @@ public class GameStep2Fragment extends Fragment {
 
                 if (isBoosted) {
                     System.out.println(currentMyMove);
+                    boostingCountTxt.setText("1");
                     currentMyMove = Move.getOriginalMove(currentMyMove);
                 } else {
+                    boostingCountTxt.setText("0");
                     System.out.println(currentMyMove);
                     currentMyMove = Move.getBoostedMove(currentMyMove);
                 }
@@ -328,7 +330,6 @@ public class GameStep2Fragment extends Fragment {
                         myMoveImg.setImageResource(currentMyMove.getDrawableId());
 
                         if (currentMyMove.index > 5) {
-                            boostingCountTxt.setText("0");
                             boostingBtn.setClickable(false);
                         }
                         GameInfo.getInstance().socket.emit(SocketMsg.COMPARE_START, currentMyMove.index, GameInfo.getInstance().isHost);
@@ -336,7 +337,6 @@ public class GameStep2Fragment extends Fragment {
                 });
             } else {
                 if (currentMyMove.index > 5) {
-                    boostingCountTxt.setText("0");
                     boostingBtn.setClickable(false);
                 }
                 GameInfo.getInstance().socket.emit(SocketMsg.COMPARE_START, currentMyMove.index, GameInfo.getInstance().isHost);

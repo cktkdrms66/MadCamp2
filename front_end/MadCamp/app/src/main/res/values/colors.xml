@@ -10,5 +10,6 @@
     <color name="win">#FF2E2EFE</color>
     <color name="loss">#FFFE2E64</color>
     <color name="tie">#FF2EFE9A</color>
+    <color name="kakao">#FFFEE500</color>
 
 </resources>

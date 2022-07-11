@@ -24,11 +24,13 @@ import com.chajun.madcamp.data.model.response.JoinRoomResponse;
 import com.chajun.madcamp.data.repository.Repository;
 import com.chajun.madcamp.enums.GameState;
 import com.chajun.madcamp.data.model.response.Room;
+import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.ui.game.GameActivity;
 import com.chajun.madcamp.ui.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -94,7 +96,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
                             @Override
                             public void onClick(View view) {
                                 String password = ((EditText)dialog.findViewById(R.id.dialog_password_edit_txt)).getText().toString();
-                                joinRoom(holder.itemView.getContext(), new JoinRoomRequest(room.getId(), AppData.userId, password));
+                                joinRoom(holder.itemView.getContext(), room, new JoinRoomRequest(room.getId(), AppData.userId, password));
                                 dialog.cancel();
                             }
                         });
@@ -108,14 +110,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
                         dialog.show();
 
                     } else {
-                        joinRoom(holder.itemView.getContext(), new JoinRoomRequest(room.getId(), AppData.userId, ""));
+                        joinRoom(holder.itemView.getContext(), room, new JoinRoomRequest(room.getId(), AppData.userId, ""));
                     }
                 }
             }
         });
     }
 
-    private void joinRoom(Context context, JoinRoomRequest request) {
+    private void joinRoom(Context context, Room room, JoinRoomRequest request) {
         Repository.getInstance().joinRoom(request, new Callback<JoinRoomResponse>() {
             @Override
             public void onResponse(Call<JoinRoomResponse> call, Response<JoinRoomResponse> response) {
@@ -123,6 +125,9 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
                     if (response.body().getSuccess() == 1) {
                         Intent intent = new Intent(context, GameActivity.class);
                         intent.putExtra(IntentKey.ROOM_ID, request.getRoomId());
+                        intent.putExtra(IntentKey.IS_EXPANDED, Objects.equals(room.getGameType(), GameType.E.toString()));
+                        intent.putExtra(IntentKey.NUM_TURNS, room.getNumTurns());
+                        intent.putExtra(IntentKey.NUM_MOVES, room.getNumMoves());
                         context.startActivity(intent);
                     } else {
                         Toast.makeText(context, R.string.prevent_join_room, Toast.LENGTH_SHORT).show();

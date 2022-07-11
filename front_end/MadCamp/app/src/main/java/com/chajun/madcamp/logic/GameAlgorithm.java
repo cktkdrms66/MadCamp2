@@ -21,23 +21,35 @@ public class GameAlgorithm {
             {GameResult.L, GameResult.W, GameResult.W, GameResult.T, GameResult.W, GameResult.L},
             {GameResult.W, GameResult.L, GameResult.W, GameResult.L, GameResult.T, GameResult.W},
             {GameResult.W, GameResult.W, GameResult.L, GameResult.W, GameResult.L, GameResult.T},
-            };
+    };
+
+    private static GameResult[][] expanedTable = new GameResult[][]{
+            {GameResult.T, GameResult.W, GameResult.L, GameResult.W, GameResult.L, GameResult.W, GameResult.L, GameResult.L, GameResult.W, GameResult.L},
+            {GameResult.L, GameResult.T, GameResult.W, GameResult.W, GameResult.L, GameResult.L, GameResult.W, GameResult.W, GameResult.L, GameResult.L},
+            {GameResult.W, GameResult.L, GameResult.T, GameResult.L, GameResult.W, GameResult.W, GameResult.L, GameResult.W, GameResult.L, GameResult.L},
+            {GameResult.L, GameResult.L, GameResult.W, GameResult.T, GameResult.W, GameResult.L, GameResult.L, GameResult.L, GameResult.W, GameResult.W},
+            {GameResult.W, GameResult.W, GameResult.L, GameResult.L, GameResult.T, GameResult.L, GameResult.W, GameResult.L, GameResult.L, GameResult.W},
+            {GameResult.L, GameResult.W, GameResult.L, GameResult.W, GameResult.W, GameResult.T, GameResult.W, GameResult.L, GameResult.W, GameResult.L},
+            {GameResult.W, GameResult.L, GameResult.W, GameResult.W, GameResult.L, GameResult.L, GameResult.T, GameResult.W, GameResult.W, GameResult.L},
+            {GameResult.W, GameResult.L, GameResult.L, GameResult.W, GameResult.W, GameResult.W, GameResult.L, GameResult.T, GameResult.L, GameResult.W},
+            {GameResult.L, GameResult.W, GameResult.W, GameResult.L, GameResult.W, GameResult.L, GameResult.L, GameResult.W, GameResult.T, GameResult.W},
+            {GameResult.W, GameResult.W, GameResult.W, GameResult.L, GameResult.L, GameResult.W, GameResult.W, GameResult.L, GameResult.L, GameResult.T}
+    };
 
     public static GameResult getGameResult(Move mine, Move enemy, boolean isExpandMode) {
-        return table[mine.index][enemy.index];
+        return !isExpandMode ? table[mine.index][enemy.index] : expanedTable[mine.index][enemy.index];
     }
 
     public static List<Move> convertStrToMoves(String str) {
-
         return Arrays.stream(str.split(" ")).map(v -> Move.valueOf(v)).collect(Collectors.toList());
     }
 
     public static String convertMovesToStr(List<Move> moves) {
-        StringBuilder result = new StringBuilder();
+        String result = "";
         for (int i = 0; i < moves.size(); i++) {
-            result.append(moves.get(i).toString()).append(" ");
+            result += moves.get(i).toString() + " ";
         }
-        return result.toString().trim();
+        return result.trim();
     }
 
 

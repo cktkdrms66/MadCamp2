@@ -88,7 +88,7 @@ public class AddRoomActivity extends AppCompatActivity {
                 String[] arr = value.split(" ");
                 numTurns = Character.getNumericValue(arr[0].charAt(0));
                 numMoves = Character.getNumericValue(arr[1].charAt(0));
-                gameType = arr[2].contains("노말") ? GameType.N : GameType.E;
+                gameType = arr[2].contains("일반") ? GameType.N : GameType.E;
             }
 
             @Override
@@ -119,6 +119,9 @@ public class AddRoomActivity extends AppCompatActivity {
                                         AppData.userId = 2;
                                         Intent intent = new Intent(AddRoomActivity.this, GameActivity.class);
                                         intent.putExtra(IntentKey.ROOM_ID, response.body().getId());
+                                        intent.putExtra(IntentKey.IS_EXPANDED, gameType == GameType.E);
+                                        intent.putExtra(IntentKey.NUM_TURNS, numTurns);
+                                        intent.putExtra(IntentKey.NUM_MOVES, numMoves);
                                         intent.putExtra(IntentKey.IS_HOST, true);
                                         startActivity(intent);
                                         finish();

@@ -8,7 +8,7 @@
     <string name="menu_rank">Rank</string>
     <string name="my_info">내 정보</string>
     <string name="random_match_start">랜덤 매치</string>
-    <string name="add_room_title">방 제목</string>
+    <string name="add_room_title">room name</string>
     <string name="add_room">방 만들기</string>
     <string name="add_room_password">(선택) 비밀번호 입력:</string>
     <string name="add_room_error">방 만들기에 실패했습니다</string>
@@ -23,5 +23,6 @@
     <string name="tie">무승부</string>
     <string name="my_score">내 점수:</string>
     <string name="password_dialog">비밀번호 입력:</string>
+    <string name="boosting">메가 진화!</string>
 
 </resources>

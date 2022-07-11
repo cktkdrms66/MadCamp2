@@ -16,15 +16,15 @@ public class GameAlgorithm {
 
     private static GameResult[][] table = new GameResult[][]{
             {GameResult.T, GameResult.W, GameResult.L, GameResult.T, GameResult.T, GameResult.W, GameResult.L, GameResult.L, GameResult.T, GameResult.T},
-            {GameResult.L, GameResult.T, GameResult.W, GameResult.T, GameResult.T, GameResult.L, GameResult.W, GameResult.L, GameResult.L, GameResult.L},
-            {GameResult.W, GameResult.L, GameResult.T, GameResult.T, GameResult.T, GameResult.L, GameResult.L, GameResult.W, GameResult.L, GameResult.L},
-            {GameResult.L, GameResult.L, GameResult.W, GameResult.T, GameResult.T, GameResult.L, GameResult.L, GameResult.L, GameResult.W, GameResult.W},
-            {GameResult.W, GameResult.W, GameResult.L, GameResult.T, GameResult.T, GameResult.L, GameResult.W, GameResult.L, GameResult.L, GameResult.W},
-            {GameResult.L, GameResult.W, GameResult.W, GameResult.T, GameResult.T, GameResult.T, GameResult.W, GameResult.L, GameResult.W, GameResult.L},
-            {GameResult.W, GameResult.L, GameResult.W, GameResult.T, GameResult.T, GameResult.L, GameResult.T, GameResult.W, GameResult.W, GameResult.L},
-            {GameResult.W, GameResult.W, GameResult.L, GameResult.T, GameResult.T, GameResult.W, GameResult.L, GameResult.T, GameResult.L, GameResult.W},
-            {GameResult.L, GameResult.W, GameResult.W, GameResult.T, GameResult.T, GameResult.L, GameResult.L, GameResult.W, GameResult.T, GameResult.W},
-            {GameResult.W, GameResult.W, GameResult.W, GameResult.T, GameResult.T, GameResult.W, GameResult.W, GameResult.L, GameResult.L, GameResult.T}
+            {GameResult.L, GameResult.T, GameResult.W, GameResult.T, GameResult.T, GameResult.L, GameResult.W, GameResult.L, GameResult.T, GameResult.T},
+            {GameResult.W, GameResult.L, GameResult.T, GameResult.T, GameResult.T, GameResult.L, GameResult.L, GameResult.W, GameResult.T, GameResult.T},
+            {GameResult.L, GameResult.L, GameResult.W, GameResult.T, GameResult.T, GameResult.L, GameResult.L, GameResult.L, GameResult.T, GameResult.T},
+            {GameResult.W, GameResult.W, GameResult.L, GameResult.T, GameResult.T, GameResult.L, GameResult.W, GameResult.L, GameResult.T, GameResult.T},
+            {GameResult.L, GameResult.W, GameResult.W, GameResult.T, GameResult.T, GameResult.T, GameResult.W, GameResult.L, GameResult.T, GameResult.T},
+            {GameResult.W, GameResult.L, GameResult.W, GameResult.T, GameResult.T, GameResult.L, GameResult.T, GameResult.W, GameResult.T, GameResult.T},
+            {GameResult.W, GameResult.W, GameResult.L, GameResult.T, GameResult.T, GameResult.W, GameResult.L, GameResult.T, GameResult.T, GameResult.T},
+            {GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T},
+            {GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T, GameResult.T}
     };
 
     private static GameResult[][] expanedTable = new GameResult[][]{

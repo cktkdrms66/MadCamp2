@@ -352,16 +352,21 @@ public class GameStep2Fragment extends Fragment {
             GameInfo.getInstance().enemyMoveCounts[currentEnemyMove.getOriginalIndex()]--;
 
 
+            //TODO 갔다와서 메가 보자기 가위 ㄹㄷㅈㄹㄷㅈ
             GameActivity.context.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     setCountClickable(false);
                     enemyMoveImg.setImageResource(currentEnemyMove.getDrawableId());
 
+
                     int gameResultVal = (int) args[2];
                     if (myIndex == 1) {
                         gameResultVal = ((int) args[2]) * (-1);
                     }
+
+                    System.out.println("game reuslt :: " + gameResultVal);
+
                     GameInfo.getInstance().myMoves.add(currentMyMove);
                     GameInfo.getInstance().enemyMoves.add(currentEnemyMove);
                     GameInfo.getInstance().gameResults.add(GameResult.getGameResult(gameResultVal));

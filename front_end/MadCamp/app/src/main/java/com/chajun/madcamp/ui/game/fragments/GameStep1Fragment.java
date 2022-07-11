@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.adapters.GameStep1ViewPagerAdapter;
 import com.chajun.madcamp.config.Constant;
+import com.chajun.madcamp.config.IntentKey;
 import com.chajun.madcamp.config.SocketMsg;
 import com.chajun.madcamp.data.AppData;
 import com.chajun.madcamp.data.model.response.User;
@@ -51,21 +52,32 @@ public class GameStep1Fragment extends Fragment {
 
     private ViewPager2 viewPager2;
 
-    private TextView[] moveCountTxts = new TextView[3];
+    private TextView[] moveCountTxts = new TextView[5];
 
     private int totalDeckCount = 7;
     private int totalCount = 0;
-    private int[] moveCounts = new int[3];
+    private int[] moveCounts;
+
+    private boolean isExpanded = false;
+
+    private ViewGroup expandLayout1;
+    private ViewGroup expandLayout2;
+
 
     Socket socket;
     Timer timer;
     int countDown = Constant.BUILD_DECK_MAX_COUNT_DOWN;
-    private GameType gameType = GameType.N;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_game_step1, container, false);
+
+        isExpanded = GameActivity.context.getIntent().getBooleanExtra(IntentKey.IS_EXPANDED, false);
+        GameInfo.getInstance().gameType = isExpanded ? GameType.E : GameType.N;
+        GameInfo.getInstance().totalTurn = GameActivity.context.getIntent().getIntExtra(IntentKey.NUM_TURNS, 123);
+        GameInfo.getInstance().totalDeck = GameActivity.context.getIntent().getIntExtra(IntentKey.NUM_MOVES, 123);
+        totalDeckCount = GameActivity.context.getIntent().getIntExtra(IntentKey.NUM_MOVES, 0);
 
         initViews(v);
         setViewPager2();
@@ -98,6 +110,18 @@ public class GameStep1Fragment extends Fragment {
         moveCountTxts[0] = v.findViewById(R.id.game_step1_txt_rock_count);
         moveCountTxts[1] = v.findViewById(R.id.game_step1_txt_scissor_count);
         moveCountTxts[2] = v.findViewById(R.id.game_step1_txt_paper_count);
+        moveCountTxts[3] = v.findViewById(R.id.game_step1_txt_lizard_count);
+        moveCountTxts[4] = v.findViewById(R.id.game_step1_txt_spock_count);
+
+        expandLayout1 = v.findViewById(R.id.game_step1_lizard_layout);
+        expandLayout2 = v.findViewById(R.id.game_step1_spock_layout);
+
+        moveCounts = new int[isExpanded ? 5 : 3];
+
+        if (!isExpanded) {
+            expandLayout1.setVisibility(View.GONE);
+            expandLayout2.setVisibility(View.GONE);
+        }
     }
 
     private void setButtons() {
@@ -143,6 +167,10 @@ public class GameStep1Fragment extends Fragment {
         moveList.add(Move.R);
         moveList.add(Move.S);
         moveList.add(Move.P);
+        if (isExpanded) {
+            moveList.add(Move.L);
+            moveList.add(Move.V);
+        }
 
         viewPager2.setAdapter(new GameStep1ViewPagerAdapter(moveList));
     }
@@ -209,7 +237,7 @@ public class GameStep1Fragment extends Fragment {
         public void call(Object... args) {
             if (totalCount != totalDeckCount) {
                 Random random = new Random();
-                int moveMax = (gameType == GameType.N) ? 3 : 5;
+                int moveMax = (GameInfo.getInstance().gameType == GameType.N) ? 3 : 5;
                 for (int i = 0; i < totalDeckCount - totalCount; i++) {
                     int moveIndex;
                     do {

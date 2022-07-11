@@ -16,6 +16,9 @@ public class Room {
     @SerializedName("num_turns")
     int numTurns;
 
+    @SerializedName("game_type")
+    String gameType;
+
     @SerializedName("host_name")
     String hostName;
     GameState state;
@@ -93,5 +96,17 @@ public class Room {
 
     public void setLocked(int locked) {
         this.locked = locked;
+    }
+
+    public String getGameType() {
+        return gameType;
+    }
+
+    public void setGameType(String gameType) {
+        this.gameType = gameType;
+    }
+
+    public int getLocked() {
+        return locked;
     }
 }

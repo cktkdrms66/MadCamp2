@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.data.model.response.GameHistory;
 import com.chajun.madcamp.enums.GameResult;
+import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.enums.Move;
 import com.chajun.madcamp.logic.GameAlgorithm;
 
@@ -58,16 +59,14 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
         List<Move> hostMoves;
         List<Move> guestMoves;
 
+        hostMoves = GameAlgorithm.convertStrToMoves(gameHistory.getHostMoves());
+        guestMoves = GameAlgorithm.convertStrToMoves(gameHistory.getGuestMoves());
         if (isHost) {
             holder.hostLayout.setBackgroundResource(R.color.teal_700);
             holder.guestLayout.setBackgroundColor(Color.WHITE);
-            hostMoves = GameAlgorithm.convertStrToMoves(gameHistory.getHostMoves());
-            guestMoves = GameAlgorithm.convertStrToMoves(gameHistory.getGuestMoves());
         } else {
             holder.hostLayout.setBackgroundColor(Color.WHITE);
             holder.guestLayout.setBackgroundResource(R.color.teal_700);
-            hostMoves = GameAlgorithm.convertStrToMoves(gameHistory.getGuestMoves());
-            guestMoves = GameAlgorithm.convertStrToMoves(gameHistory.getHostMoves());
         }
 
         List<GameResult> gameResults = new ArrayList<>();
@@ -76,7 +75,7 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
         List<Move> enemyMoves = isHost ? guestMoves : hostMoves;
         for (int i = 0; i < hostMoves.size(); i++) {
 
-            gameResults.add(GameAlgorithm.getGameResult(myMoves.get(i), enemyMoves.get(i), false));
+            gameResults.add(GameAlgorithm.getGameResult(myMoves.get(i), enemyMoves.get(i), gameHistory.getGameType() == GameType.E));
         }
 
         int winCount = gameResults.stream().filter(v -> v == GameResult.W).collect(Collectors.toList()).size();
@@ -111,7 +110,7 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
             ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(hostMoves.get(i).getDrawableId());
             ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestMoves.get(i).getDrawableId());
 
-            GameResult turnResult = GameAlgorithm.getGameResult(hostMoves.get(i), guestMoves.get(i), false);
+            GameResult turnResult = GameAlgorithm.getGameResult(hostMoves.get(i), guestMoves.get(i), gameHistory.getGameType() == GameType.E);
 
             if (turnResult == GameResult.W) {
                 ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.BLUE);

@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +19,6 @@ import com.chajun.madcamp.config.Constant;
 import com.chajun.madcamp.config.SocketMsg;
 import com.chajun.madcamp.data.AppData;
 import com.chajun.madcamp.data.model.request.GameCompleteRequest;
-import com.chajun.madcamp.data.model.request.JoinRoomRequest;
 import com.chajun.madcamp.data.model.response.GameCompleteResponse;
 import com.chajun.madcamp.data.repository.Repository;
 import com.chajun.madcamp.enums.GameResult;
@@ -29,22 +27,17 @@ import com.chajun.madcamp.enums.Move;
 import com.chajun.madcamp.logic.GameAlgorithm;
 import com.chajun.madcamp.logic.GameInfo;
 import com.chajun.madcamp.ui.game.GameActivity;
-import com.chajun.madcamp.ui.main.MainActivity;
-import com.chajun.madcamp.util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,20 +47,28 @@ import retrofit2.Response;
 public class GameStep2Fragment extends Fragment {
 
 
-    private TextView[] myMoveCountTxts = new TextView[3];
-    private TextView[] enemyMoveCountTxts = new TextView[3];
+    private TextView[] myMoveCountTxts = new TextView[5];
+    private TextView[] enemyMoveCountTxts = new TextView[5];
 
-    private View[] myMoves = new View[3];
+    private View[] myMoves = new View[5];
 
     private TextView countDownTxt;
 
     private ImageView myMoveImg;
     private ImageView enemyMoveImg;
 
-    private ImageView[] gameResultImgs = new ImageView[4];
+    private ViewGroup enemyExpandLayout1;
+    private ViewGroup enemyExpandLayout2;
+    private ViewGroup myExpandLayout1;
+    private ViewGroup myExpandLayout2;
+
+    private ImageView[] gameResultImgs = new ImageView[7];
 
     private Move currentMyMove;
     private Move currentEnemyMove;
+
+    private View boostingBtn;
+    private boolean isBoosted;
 
     Timer timer;
     int countDown = 5;
@@ -76,6 +77,8 @@ public class GameStep2Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_game_step2, container, false);
+
+        isBoosted = false;
 
         initViews(v);
         setTexts();
@@ -96,14 +99,20 @@ public class GameStep2Fragment extends Fragment {
         myMoveCountTxts[0] = v.findViewById(R.id.game_step2_txt_rock_count_mine);
         myMoveCountTxts[1] = v.findViewById(R.id.game_step2_txt_scissor_count_mine);
         myMoveCountTxts[2] = v.findViewById(R.id.game_step2_txt_paper_count_mine);
+        myMoveCountTxts[3] = v.findViewById(R.id.game_step2_txt_lizard_count_mine);
+        myMoveCountTxts[4] = v.findViewById(R.id.game_step2_txt_spock_count_mine);
 
         myMoves[0] = v.findViewById(R.id.game_step2_my_rock);
         myMoves[1] = v.findViewById(R.id.game_step2_my_scissor);
         myMoves[2] = v.findViewById(R.id.game_step2_my_paper);
+        myMoves[3] = v.findViewById(R.id.game_step2_my_lizard);
+        myMoves[4] = v.findViewById(R.id.game_step2_my_spock);
 
         enemyMoveCountTxts[0] = v.findViewById(R.id.game_step2_txt_rock_count_enemy);
         enemyMoveCountTxts[1] = v.findViewById(R.id.game_step2_txt_scissor_count_enemy);
         enemyMoveCountTxts[2] = v.findViewById(R.id.game_step2_txt_paper_count_enemy);
+        enemyMoveCountTxts[3] = v.findViewById(R.id.game_step2_txt_lizard_count_enemy);
+        enemyMoveCountTxts[4] = v.findViewById(R.id.game_step2_txt_spock_count_enemy);
 
         countDownTxt = v.findViewById(R.id.game_step2_txt_countdown);
         //currentTurnPerTotalTxt = v.findViewById(R.id.game_step2_txt_turn_per_total);
@@ -112,9 +121,31 @@ public class GameStep2Fragment extends Fragment {
         gameResultImgs[1] = v.findViewById(R.id.game_step2_img_game_result_1);
         gameResultImgs[2] = v.findViewById(R.id.game_step2_img_game_result_2);
         gameResultImgs[3] = v.findViewById(R.id.game_step2_img_game_result_3);
+        gameResultImgs[4] = v.findViewById(R.id.game_step2_img_game_result_4);
+        gameResultImgs[5] = v.findViewById(R.id.game_step2_img_game_result_5);
+        gameResultImgs[6] = v.findViewById(R.id.game_step2_img_game_result_6);
+
+        myExpandLayout1 = v.findViewById(R.id.game_step2_my_lizard);
+        myExpandLayout2 = v.findViewById(R.id.game_step2_my_spock);
+
+        enemyExpandLayout1 = v.findViewById(R.id.game_step2_enemy_ex_layout1);
+        enemyExpandLayout2 = v.findViewById(R.id.game_step2_enemy_ex_layout2);
+
+        if (GameInfo.getInstance().gameType == GameType.N) {
+            myExpandLayout1.setVisibility(View.GONE);
+            myExpandLayout2.setVisibility(View.GONE);
+            enemyExpandLayout1.setVisibility(View.GONE);
+            enemyExpandLayout2.setVisibility(View.GONE);
+        }
+
+        for (int i = 0; i < GameInfo.getInstance().totalTurn; i++) {
+            gameResultImgs[i].setVisibility(View.VISIBLE);
+        }
 
         myMoveImg = v.findViewById(R.id.game_step2_img_move_mine);
         enemyMoveImg = v.findViewById(R.id.game_step2_img_move_enemy);
+
+        boostingBtn = v.findViewById(R.id.game_step2_btn_boosting);
     }
 
     private void setTexts() {
@@ -160,8 +191,8 @@ public class GameStep2Fragment extends Fragment {
                     }
 
                     if (currentMyMove != null) {
-                        GameInfo.getInstance().myMoveCounts[currentMyMove.index]++;
-                        myMoveCountTxts[currentMyMove.index].setText(String.valueOf(GameInfo.getInstance().myMoveCounts[currentMyMove.index]));
+                        GameInfo.getInstance().myMoveCounts[currentMyMove.getOriginalIndex()]++;
+                        myMoveCountTxts[currentMyMove.getOriginalIndex()].setText(String.valueOf(GameInfo.getInstance().myMoveCounts[currentMyMove.getOriginalIndex()]));
                     }
 
                     GameInfo.getInstance().myMoveCounts[finalI]--;
@@ -172,9 +203,32 @@ public class GameStep2Fragment extends Fragment {
 
 
                     myMoveImg.setImageResource(currentMyMove.getDrawableId());
+                    isBoosted = false;
                 }
             });
         }
+
+        boostingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("boost");
+
+                if (currentMyMove == null) return;
+
+                if (isBoosted) {
+                    System.out.println(currentMyMove);
+                    currentMyMove = Move.getOriginalMove(currentMyMove);
+                } else {
+                    System.out.println(currentMyMove);
+                    currentMyMove = Move.getBoostedMove(currentMyMove);
+                }
+
+                isBoosted = !isBoosted;
+
+                myMoveImg.setImageResource(currentMyMove.getDrawableId());
+
+            }
+        });
     }
 
 
@@ -265,10 +319,17 @@ public class GameStep2Fragment extends Fragment {
 
                         myMoveCountTxts[currentMyMove.index].setText(String.valueOf(--GameInfo.getInstance().myMoveCounts[currentMyMove.index]));
                         myMoveImg.setImageResource(currentMyMove.getDrawableId());
+
+                        if (currentMyMove.index > 5) {
+                            boostingBtn.setClickable(false);
+                        }
                         GameInfo.getInstance().socket.emit(SocketMsg.COMPARE_START, currentMyMove.index, GameInfo.getInstance().isHost);
                     }
                 });
             } else {
+                if (currentMyMove.index > 5) {
+                    boostingBtn.setClickable(false);
+                }
                 GameInfo.getInstance().socket.emit(SocketMsg.COMPARE_START, currentMyMove.index, GameInfo.getInstance().isHost);
             }
         }
@@ -278,6 +339,8 @@ public class GameStep2Fragment extends Fragment {
         @Override
         public void call(Object... args) {
 
+            isBoosted = false;
+
             System.out.println("on Turn result!!");
 
             int myIndex = GameInfo.getInstance().isHost ? 0 : 1;
@@ -286,7 +349,7 @@ public class GameStep2Fragment extends Fragment {
             currentMyMove = Move.getMove((int) args[myIndex]);
             currentEnemyMove = Move.getMove((int) args[enemyIndex]);
 
-            GameInfo.getInstance().enemyMoveCounts[currentEnemyMove.index]--;
+            GameInfo.getInstance().enemyMoveCounts[currentEnemyMove.getOriginalIndex()]--;
 
 
             GameActivity.context.runOnUiThread(new Runnable() {

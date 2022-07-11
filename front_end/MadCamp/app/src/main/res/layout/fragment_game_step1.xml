@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,29 +37,16 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="0"
-            android:textSize="30sp" />
+            android:textSize="24sp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/step1_txt_total_count"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Choose your deck: "
-                android:textSize="24sp"/>
-
-            <TextView
-                android:id="@+id/step1_txt_total_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="0 / 7"
-                android:textSize="24sp" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0 / 7"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -72,8 +60,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/step1_viewpager2"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_margin="-64dp"/>
+            android:layout_height="300dp"></androidx.viewpager2.widget.ViewPager2>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -181,6 +168,63 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/icon_paper"
+                app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/teal_200">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/game_step1_lizard_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/game_step1_txt_lizard_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_lizard"
+                app:civ_border_color="@color/teal_200"
+                app:civ_border_width="2dp"
+                app:civ_circle_background_color="@color/teal_200">
+
+            </de.hdodenhof.circleimageview.CircleImageView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/game_step1_spock_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/game_step1_txt_spock_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="20sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/icon_spock"
                 app:civ_border_color="@color/teal_200"
                 app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">

@@ -62,6 +62,8 @@ public class GameStep2Fragment extends Fragment {
     private ViewGroup myExpandLayout1;
     private ViewGroup myExpandLayout2;
 
+    private TextView boostingCountTxt;
+
     private ImageView[] gameResultImgs = new ImageView[7];
 
     private Move currentMyMove;
@@ -91,6 +93,8 @@ public class GameStep2Fragment extends Fragment {
             e.printStackTrace();
         }
 
+
+
         return v;
     }
 
@@ -116,6 +120,9 @@ public class GameStep2Fragment extends Fragment {
 
         countDownTxt = v.findViewById(R.id.game_step2_txt_countdown);
         //currentTurnPerTotalTxt = v.findViewById(R.id.game_step2_txt_turn_per_total);
+
+        boostingCountTxt = v.findViewById(R.id.game_step2_txt_boosting_count);
+        boostingCountTxt.setText("1");
 
         gameResultImgs[0] = v.findViewById(R.id.game_step2_img_game_result_0);
         gameResultImgs[1] = v.findViewById(R.id.game_step2_img_game_result_1);
@@ -321,6 +328,7 @@ public class GameStep2Fragment extends Fragment {
                         myMoveImg.setImageResource(currentMyMove.getDrawableId());
 
                         if (currentMyMove.index > 5) {
+                            boostingCountTxt.setText("0");
                             boostingBtn.setClickable(false);
                         }
                         GameInfo.getInstance().socket.emit(SocketMsg.COMPARE_START, currentMyMove.index, GameInfo.getInstance().isHost);
@@ -328,6 +336,7 @@ public class GameStep2Fragment extends Fragment {
                 });
             } else {
                 if (currentMyMove.index > 5) {
+                    boostingCountTxt.setText("0");
                     boostingBtn.setClickable(false);
                 }
                 GameInfo.getInstance().socket.emit(SocketMsg.COMPARE_START, currentMyMove.index, GameInfo.getInstance().isHost);

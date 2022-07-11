@@ -4,9 +4,9 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:paddingStart="50dp"
-    android:paddingEnd="50dp">
+    android:padding="10dp"
+    android:paddingStart="55dp"
+    android:paddingEnd="55dp">
 
     <TextView
         android:id="@+id/dialog_game_result_title"

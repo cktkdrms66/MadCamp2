@@ -171,7 +171,7 @@ public class GameStep2Fragment extends Fragment {
         }
         object.put("arr", array);
 
-        GameInfo.getInstance().socket.emit(SocketMsg.INIT_GAME, GameInfo.getInstance().totalTurn,
+        GameInfo.getInstance().socket.emit(SocketMsg.INIT_GAME, GameInfo.getInstance().totalTurn, GameInfo.getInstance().gameType.toString(),
                 object, GameInfo.getInstance().isHost ? 1 : 0);
     }
 

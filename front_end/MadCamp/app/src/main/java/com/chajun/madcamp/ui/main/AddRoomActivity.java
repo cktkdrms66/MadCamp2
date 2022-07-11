@@ -26,6 +26,7 @@ import com.chajun.madcamp.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +61,23 @@ public class AddRoomActivity extends AppCompatActivity {
         lockedChkBox = findViewById(R.id.add_room_chk_box_password);
         passwordEditTxt = findViewById(R.id.add_room_edit_txt_password);
         addBtn = findViewById(R.id.add_room_btn_add);
+
+        int index = new Random().nextInt(4);
+
+        switch (index) {
+            case 0:
+                titleEditTxt.setText(R.string.add_room_title_0);
+                break;
+            case 1:
+                titleEditTxt.setText(R.string.add_room_title_1);
+                break;
+            case 2:
+                titleEditTxt.setText(R.string.add_room_title_2);
+                break;
+            case 3:
+                titleEditTxt.setText(R.string.add_room_title_3);
+                break;
+        }
     }
 
     private void setLockedChkBox() {
@@ -116,7 +134,6 @@ public class AddRoomActivity extends AppCompatActivity {
                             public void onResponse(Call<AddRoomResponse> call, Response<AddRoomResponse> response) {
                                 try {
                                     if (response.isSuccessful()) {
-                                        AppData.userId = 2;
                                         Intent intent = new Intent(AddRoomActivity.this, GameActivity.class);
                                         intent.putExtra(IntentKey.ROOM_ID, response.body().getId());
                                         intent.putExtra(IntentKey.IS_EXPANDED, gameType == GameType.E);

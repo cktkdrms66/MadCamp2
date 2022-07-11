@@ -1,5 +1,6 @@
 package com.chajun.madcamp.ui.main.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -49,6 +50,13 @@ public class RoomListFragment extends Fragment {
         refreshRoomList();
 
         return v;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        refreshRoomList();
     }
 
     private void initViews(View v) {

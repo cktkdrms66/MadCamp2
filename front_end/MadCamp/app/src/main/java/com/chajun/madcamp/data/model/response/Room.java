@@ -25,6 +25,7 @@ public class Room {
     String password;
 
     int locked;
+    int hidden;
 
     public int getId() {
         return id;
@@ -108,5 +109,13 @@ public class Room {
 
     public int getLocked() {
         return locked;
+    }
+
+    public int getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(int hidden) {
+        this.hidden = hidden;
     }
 }

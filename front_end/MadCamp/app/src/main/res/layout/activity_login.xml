@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="@string/username"/>
+        android:hint="@string/email"/>
 
     <EditText
         android:id="@+id/login_edit_txt_password"

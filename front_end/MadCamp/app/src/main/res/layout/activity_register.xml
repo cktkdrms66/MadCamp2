@@ -1,39 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     android:padding="20dp">
 
-    <EditText
-        android:id="@+id/login_edit_txt_username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/username"/>
 
     <EditText
-        android:id="@+id/login_edit_txt_password"
+        android:id="@+id/register_edit_txt_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword"
-        android:hint="@string/password_hint"/>
+        android:hint="@string/username"
+        android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/login_edit_txt_password_confirm"
+        android:id="@+id/register_edit_txt_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPassword"
-        android:hint="@string/password_confirm_hint"/>
+        android:hint="@string/email"
+        android:inputType="textPersonName" />
+
+
+    <EditText
+        android:id="@+id/register_edit_txt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/register_edit_txt_password_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/password_confirm_hint"
+        android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/login_button_native_register"
+        android:id="@+id/register_button_native_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/native_register"/>
+        android:text="@string/native_register" />
 
 </LinearLayout>

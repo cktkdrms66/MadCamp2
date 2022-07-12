@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        myInfoBtn = findViewById(R.id.main_button_my_info);
-        roomListBtn = findViewById(R.id.main_button_room_list);
-        rankListBtn = findViewById(R.id.main_button_rank_list);
-        createRoomBtn = findViewById(R.id.main_button_create_room);
+        myInfoBtn = findViewById(R.id.main_card_my_info);
+        roomListBtn = findViewById(R.id.main_card_room_list);
+        rankListBtn = findViewById(R.id.main_card_rank_list);
+        createRoomBtn = findViewById(R.id.main_card_create_room);
     }
 
     private void setBtns() {

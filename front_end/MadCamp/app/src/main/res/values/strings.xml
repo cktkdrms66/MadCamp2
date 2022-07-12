@@ -3,8 +3,6 @@
     <string name="confirm">확인</string>
     <string name="submit">제출</string>
     <string name="cancel">취소</string>
-    <string name="menu_room">Rooms</string>
-    <string name="menu_rank">Rank</string>
     <string name="my_info">내 정보</string>
     <string name="random_match_start">랜덤 매치</string>
     <string name="room_list">방 목록</string>

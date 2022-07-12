@@ -5,11 +5,14 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="win">#FF2E2EFE</color>
-    <color name="loss">#FFFE2E64</color>
-    <color name="tie">#FF2EFE9A</color>
-    <color name="kakao">#FFFEE500</color>
+    <color name="black">#ff000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="win">#ff497be0</color>
+    <color name="win_bg">#ffe9f0fe</color>
+    <color name="loss">#ffe3374e</color>
+    <color name="loss_bg">#ffffeff1</color>
+    <color name="tie">#ff6a7a86</color>
+    <color name="tie_bg">#fff6f6f8</color>
+    <color name="kakao">#fffee500</color>
 
 </resources>

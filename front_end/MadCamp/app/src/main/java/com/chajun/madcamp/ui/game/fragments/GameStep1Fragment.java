@@ -21,6 +21,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.adapters.GameHistoryAdapter;
+import com.chajun.madcamp.adapters.GameHistoryAdapter2;
 import com.chajun.madcamp.adapters.GameStep1ViewPagerAdapter;
 import com.chajun.madcamp.config.Constant;
 import com.chajun.madcamp.config.IntentKey;
@@ -56,7 +57,7 @@ public class GameStep1Fragment extends Fragment {
 
     private TextView totalCountTxt;
 
-    private RecyclerView enemyRecyclerView;
+    private ViewPager2 enemyRecyclerView;
 
     private Button plusBtn;
     private Button minusBtn;
@@ -81,7 +82,7 @@ public class GameStep1Fragment extends Fragment {
     private ImageView scissorImg;
     private ImageView paperImg;
 
-    private GameHistoryAdapter adapter;
+    private GameHistoryAdapter2 adapter;
 
 
     Socket socket;
@@ -169,8 +170,8 @@ public class GameStep1Fragment extends Fragment {
                         progress.setVisibility(View.GONE);
                         enemyRecyclerView.setVisibility(View.VISIBLE);
 
-                        adapter = new GameHistoryAdapter(enemyId, GameActivity.context);
-                        enemyRecyclerView.setLayoutManager(new LinearLayoutManager(GameActivity.context, RecyclerView.VERTICAL, false));
+                        adapter = new GameHistoryAdapter2(enemyId, GameActivity.context);
+                        //enemyRecyclerView.setLayoutManager(new LinearLayoutManager(GameActivity.context, RecyclerView.VERTICAL, false));
                         enemyRecyclerView.setAdapter(adapter);
                         adapter.setItems(response.body());
                     } else {
@@ -188,6 +189,26 @@ public class GameStep1Fragment extends Fragment {
                 errorToast.show();
             }
         });
+
+    }
+
+    private void setEnemyViewPager() {
+        enemyRecyclerView.setOffscreenPageLimit(3);
+        enemyRecyclerView.setClipToPadding(false);
+        enemyRecyclerView.setClipChildren(false);
+        enemyRecyclerView.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
+
+        CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
+        compositePageTransformer.addTransformer(new MarginPageTransformer(50));
+        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
+            }
+        });
+
+        enemyRecyclerView.setPageTransformer(compositePageTransformer);
 
     }
 
@@ -296,7 +317,7 @@ public class GameStep1Fragment extends Fragment {
                         countDownTxt.setText(String.valueOf(countDown));
 
                         setEnemyRecyclerView();
-
+//                        setEnemyViewPager();
                         TimerTask task = new TimerTask() {
                             @Override
                             public void run() {

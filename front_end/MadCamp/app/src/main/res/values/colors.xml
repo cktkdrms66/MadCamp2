@@ -13,6 +13,8 @@
     <color name="loss_bg">#ffffeff1</color>
     <color name="tie">#ff6a7a86</color>
     <color name="tie_bg">#fff6f6f8</color>
+    <color name="unused">#474747</color>
+    <color name="unused_bg">#B1B1B1</color>
     <color name="kakao">#fffee500</color>
 
 </resources>

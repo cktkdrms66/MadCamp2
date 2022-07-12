@@ -118,7 +118,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private void setRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false)) ; // 상하 스크롤r
 
-        adapter = new GameHistoryAdapter(userId);
+        adapter = new GameHistoryAdapter(userId, this);
         recyclerView.setAdapter(adapter);
     }
 

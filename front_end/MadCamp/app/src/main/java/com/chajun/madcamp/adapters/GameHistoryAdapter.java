@@ -31,9 +31,12 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
     private List<GameHistory> gameHistoryList;
     private int userId;
 
-    public GameHistoryAdapter(int userId) {
+    private Context context;
+
+    public GameHistoryAdapter(int userId, Context context) {
         gameHistoryList = new ArrayList<>();
         this.userId  = userId;
+        this.context = context;
     }
 
     public void setItems(List<GameHistory> items) {
@@ -61,13 +64,6 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
 
         hostMoves = GameAlgorithm.convertStrToMoves(gameHistory.getHostMoves());
         guestMoves = GameAlgorithm.convertStrToMoves(gameHistory.getGuestMoves());
-        if (isHost) {
-            holder.hostLayout.setBackgroundResource(R.color.teal_700);
-            holder.guestLayout.setBackgroundColor(Color.WHITE);
-        } else {
-            holder.hostLayout.setBackgroundColor(Color.WHITE);
-            holder.guestLayout.setBackgroundResource(R.color.teal_700);
-        }
 
         List<GameResult> gameResults = new ArrayList<>();
 
@@ -97,6 +93,26 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
 
         holder.gameResultTxt.setText(gameResult.toString());
 
+        if (isHost) {
+            if (gameResult == GameResult.W) {
+                holder.hostLayout.setBackgroundResource(R.color.win_bg);
+            } else if (gameResult == GameResult.L) {
+                holder.hostLayout.setBackgroundResource(R.color.loss_bg);
+            } else {
+                holder.hostLayout.setBackgroundResource(R.color.tie_bg);
+            }
+            holder.guestLayout.setBackgroundColor(Color.WHITE);
+        } else {
+            holder.hostLayout.setBackgroundColor(Color.WHITE);
+            if (gameResult == GameResult.W) {
+                holder.guestLayout.setBackgroundResource(R.color.win_bg);
+            } else if (gameResult == GameResult.L) {
+                holder.guestLayout.setBackgroundResource(R.color.loss_bg);
+            } else {
+                holder.guestLayout.setBackgroundResource(R.color.tie_bg);
+            }
+        }
+
         LayoutInflater inflater = (LayoutInflater) holder.itemView.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         holder.hostLayout.removeAllViews();
@@ -113,12 +129,20 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
             GameResult turnResult = GameAlgorithm.getGameResult(hostMoves.get(i), guestMoves.get(i), gameHistory.getGameType() == GameType.E);
 
             if (turnResult == GameResult.W) {
-                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.BLUE);
+                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.win, context.getTheme()));
+                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.win_bg);
+                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.loss, context.getTheme()));
+                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.loss_bg);
             } else if (turnResult == GameResult.L) {
-                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.BLUE);
+                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.loss, context.getTheme()));
+                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.loss_bg);
+                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.win, context.getTheme()));
+                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.win_bg);
             } else {
-                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.GREEN);
-                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.GREEN);
+                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.tie, context.getTheme()));
+                ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.tie_bg);
+                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.tie, context.getTheme()));
+                ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.tie_bg);
             }
 
             holder.hostLayout.addView(hostMoveView);
@@ -135,8 +159,10 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
             ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(hostUnusedMoves.get(i).getDrawableId());
             ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestUnusedMoves.get(i).getDrawableId());
 
-            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.RED);
-            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(Color.RED);
+            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.unused, context.getTheme()));
+            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.unused_bg);
+            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.unused, context.getTheme()));
+            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.unused_bg);
 
             holder.hostLayout.addView(hostMoveView);
             holder.guestLayout.addView(guestMoveView);

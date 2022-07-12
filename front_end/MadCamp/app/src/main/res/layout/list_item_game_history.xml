@@ -8,11 +8,13 @@
 
     <TextView
         android:id="@+id/list_item_game_history_txt_result"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/circle"
+        android:layout_width="40dp"
+        android:layout_height="68dp"
         android:gravity="center"
-        android:text="W" />
+        android:text="W"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,6 +27,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal">
+
 
         </LinearLayout>
 

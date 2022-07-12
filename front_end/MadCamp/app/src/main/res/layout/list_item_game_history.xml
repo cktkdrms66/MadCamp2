@@ -1,45 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/list_item_game_history_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/list_item_game_history_txt_result"
-        android:layout_width="40dp"
-        android:layout_height="68dp"
-        android:gravity="center"
-        android:text="W"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="@color/white"/>
+    android:layout_margin="5dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
+        android:id="@+id/list_item_game_history_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp">
+
+            <TextView
+                android:id="@+id/list_item_game_history_txt_result"
+                android:layout_width="40dp"
+                android:layout_height="68dp"
+                android:gravity="center"
+                android:text="W"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/white"/>
+
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:id="@+id/list_item_game_history_layout_host"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="-3dp">
 
+            <LinearLayout
+                android:id="@+id/list_item_game_history_layout_host"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingStart="6dp"
+                android:paddingEnd="3dp"
+                android:orientation="horizontal"/>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/list_item_game_history_layout_guest"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/list_item_game_history_layout_guest"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:paddingStart="6dp"
+                android:paddingEnd="3dp"
+                android:orientation="horizontal"/>
 
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,6 +77,10 @@ public class GameStep1Fragment extends Fragment {
     private ViewGroup expandLayout1;
     private ViewGroup expandLayout2;
 
+    private ImageView rockImg;
+    private ImageView scissorImg;
+    private ImageView paperImg;
+
     private GameHistoryAdapter adapter;
 
 
@@ -118,6 +123,10 @@ public class GameStep1Fragment extends Fragment {
         countDownTxt = v.findViewById(R.id.step1_txt_count_down);
         viewPager2 = v.findViewById(R.id.step1_viewpager2);
 
+        rockImg = v.findViewById(R.id.step1_rock_icon);
+        scissorImg = v.findViewById(R.id.step1_scissor_icon);
+        paperImg = v.findViewById(R.id.step1_paper_icon);
+
         progress = v.findViewById(R.id.step1_progress);
 
         enemyRecyclerView = v.findViewById(R.id.step1_recyclerview_enemy);
@@ -141,6 +150,10 @@ public class GameStep1Fragment extends Fragment {
         if (!isExpanded) {
             expandLayout1.setVisibility(View.GONE);
             expandLayout2.setVisibility(View.GONE);
+        } else {
+            rockImg.setImageResource(R.drawable.icon_rock_expand);
+            scissorImg.setImageResource(R.drawable.icon_scissor_expand);
+            paperImg.setImageResource(R.drawable.icon_paper_expand);
         }
     }
 

@@ -8,7 +8,9 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chajun.madcamp.R;
+import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.enums.Move;
+import com.chajun.madcamp.logic.GameInfo;
 
 import java.util.List;
 
@@ -51,7 +53,7 @@ public class GameStep1ViewPagerAdapter extends RecyclerView.Adapter<GameStep1Vie
 
         public void onBind(Move data) {
             move = data;
-            imageView.setImageResource(move.getDrawableId());
+            imageView.setImageResource(move.getDrawableId(GameInfo.getInstance().gameType == GameType.E));
         }
     }
 }

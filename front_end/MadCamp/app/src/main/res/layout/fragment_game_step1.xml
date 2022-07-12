@@ -138,12 +138,12 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-
+                android:id="@+id/step1_rock_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/icon_rock"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
+
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -165,12 +165,12 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-
+                android:id="@+id/step1_scissor_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/icon_scissor"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
+
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -192,12 +192,12 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-
+                android:id="@+id/step1_paper_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/icon_paper"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
+
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -224,9 +224,9 @@
 
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/icon_lizard"
+                android:src="@drawable/icon_lizard_expand"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
+
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -252,9 +252,8 @@
 
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/icon_spock"
+                android:src="@drawable/icon_spock_expand"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>

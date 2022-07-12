@@ -19,11 +19,11 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/step2_enemy_rock_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon_rock"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -46,11 +46,11 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/step2_enemy_scissor_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon_scissor"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -73,11 +73,11 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/step2_enemy_paper_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon_paper"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -103,9 +103,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/icon_lizard"
+                android:src="@drawable/icon_lizard_expand"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -131,9 +130,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/icon_spock"
+                android:src="@drawable/icon_spock_expand"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -318,11 +316,11 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/step2_my_rock_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon_rock"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -345,12 +343,11 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-
+                android:id="@+id/step2_my_scissor_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon_scissor"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -373,12 +370,11 @@
                 android:textSize="20sp" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-
+                android:id="@+id/step2_my_paper_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/icon_paper"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -404,9 +400,8 @@
 
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/icon_lizard"
+                android:src="@drawable/icon_lizard_expand"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>
@@ -432,9 +427,8 @@
 
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/icon_spock"
+                android:src="@drawable/icon_spock_expand"
                 app:civ_border_color="@color/teal_200"
-                app:civ_border_width="2dp"
                 app:civ_circle_background_color="@color/teal_200">
 
             </de.hdodenhof.circleimageview.CircleImageView>

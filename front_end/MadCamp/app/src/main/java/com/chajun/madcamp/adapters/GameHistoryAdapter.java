@@ -123,8 +123,8 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
             View guestMoveView = inflater.inflate(R.layout.item_move, null, false);
 
 
-            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(hostMoves.get(i).getDrawableId());
-            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestMoves.get(i).getDrawableId());
+            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(hostMoves.get(i).getDrawableId(gameHistory.getGameType() == GameType.E));
+            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestMoves.get(i).getDrawableId(gameHistory.getGameType() == GameType.E));
 
             GameResult turnResult = GameAlgorithm.getGameResult(hostMoves.get(i), guestMoves.get(i), gameHistory.getGameType() == GameType.E);
 
@@ -156,8 +156,8 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
             View hostMoveView = inflater.inflate(R.layout.item_move, null, false);
             View guestMoveView = inflater.inflate(R.layout.item_move, null, false);
 
-            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(hostUnusedMoves.get(i).getDrawableId());
-            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestUnusedMoves.get(i).getDrawableId());
+            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(hostUnusedMoves.get(i).getDrawableId(gameHistory.getGameType() == GameType.E));
+            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestUnusedMoves.get(i).getDrawableId(gameHistory.getGameType() == GameType.E));
 
             ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.unused, context.getTheme()));
             ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.unused_bg);

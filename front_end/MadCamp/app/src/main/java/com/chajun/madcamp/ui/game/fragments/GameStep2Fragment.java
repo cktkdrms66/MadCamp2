@@ -72,6 +72,9 @@ public class GameStep2Fragment extends Fragment {
     private View boostingBtn;
     private boolean isBoosted;
 
+    private ImageView[] enemyNormalImgs = new ImageView[3];
+    private ImageView[] myNormalImgs = new ImageView[3];
+
     Timer timer;
     int countDown = 5;
 
@@ -138,11 +141,27 @@ public class GameStep2Fragment extends Fragment {
         enemyExpandLayout1 = v.findViewById(R.id.game_step2_enemy_ex_layout1);
         enemyExpandLayout2 = v.findViewById(R.id.game_step2_enemy_ex_layout2);
 
+        enemyNormalImgs[0] = v.findViewById(R.id.step2_enemy_rock_icon);
+        enemyNormalImgs[1] = v.findViewById(R.id.step2_enemy_scissor_icon);
+        enemyNormalImgs[2] = v.findViewById(R.id.step2_enemy_paper_icon);
+
+        myNormalImgs[0] = v.findViewById(R.id.step2_my_rock_icon);
+        myNormalImgs[1] = v.findViewById(R.id.step2_my_scissor_icon);
+        myNormalImgs[2] = v.findViewById(R.id.step2_my_paper_icon);
+
         if (GameInfo.getInstance().gameType == GameType.N) {
             myExpandLayout1.setVisibility(View.GONE);
             myExpandLayout2.setVisibility(View.GONE);
             enemyExpandLayout1.setVisibility(View.GONE);
             enemyExpandLayout2.setVisibility(View.GONE);
+        } else {
+            enemyNormalImgs[0].setImageResource(R.drawable.icon_rock_expand);
+            enemyNormalImgs[1].setImageResource(R.drawable.icon_scissor_expand);
+            enemyNormalImgs[2].setImageResource(R.drawable.icon_paper_expand);
+
+            myNormalImgs[0].setImageResource(R.drawable.icon_rock_expand);
+            myNormalImgs[1].setImageResource(R.drawable.icon_scissor_expand);
+            myNormalImgs[2].setImageResource(R.drawable.icon_paper_expand);
         }
 
         for (int i = 0; i < GameInfo.getInstance().totalTurn; i++) {
@@ -209,7 +228,7 @@ public class GameStep2Fragment extends Fragment {
                     myMoveCountTxts[finalI].setText(String.valueOf(GameInfo.getInstance().myMoveCounts[finalI]));
 
 
-                    myMoveImg.setImageResource(currentMyMove.getDrawableId());
+                    myMoveImg.setImageResource(currentMyMove.getDrawableId(GameInfo.getInstance().gameType == GameType.E));
 
                     if (isBoosted) {
                         boostingCountTxt.setText("1");
@@ -239,7 +258,7 @@ public class GameStep2Fragment extends Fragment {
 
                 isBoosted = !isBoosted;
 
-                myMoveImg.setImageResource(currentMyMove.getDrawableId());
+                myMoveImg.setImageResource(currentMyMove.getDrawableId(GameInfo.getInstance().gameType == GameType.E));
 
             }
         });
@@ -332,7 +351,7 @@ public class GameStep2Fragment extends Fragment {
 
 
                         myMoveCountTxts[currentMyMove.index].setText(String.valueOf(--GameInfo.getInstance().myMoveCounts[currentMyMove.index]));
-                        myMoveImg.setImageResource(currentMyMove.getDrawableId());
+                        myMoveImg.setImageResource(currentMyMove.getDrawableId(GameInfo.getInstance().gameType == GameType.E));
 
                         if (currentMyMove.index > 5) {
                             boostingBtn.setClickable(false);
@@ -371,7 +390,7 @@ public class GameStep2Fragment extends Fragment {
                 @Override
                 public void run() {
                     setCountClickable(false);
-                    enemyMoveImg.setImageResource(currentEnemyMove.getDrawableId());
+                    enemyMoveImg.setImageResource(currentEnemyMove.getDrawableId(GameInfo.getInstance().gameType == GameType.E));
 
 
                     int gameResultVal = (int) args[2];

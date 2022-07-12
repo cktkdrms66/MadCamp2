@@ -7,7 +7,7 @@
     <string name="menu_rank">Rank</string>
     <string name="my_info">내 정보</string>
     <string name="random_match_start">랜덤 매치</string>
-    <string name="room_list">방 리스트</string>
+    <string name="room_list">방 목록</string>
     <string name="create_room">방 만들기</string>
     <string name="rank_list">랭킹</string>
     <!--TODO: change this once DB supports Korean-->
@@ -46,4 +46,7 @@
     <string name="kakao_login">카카오 로그인</string>
     <string name="join_enemy_1">상대방이 입장했습니다</string>
     <string name="join_enemy_2">방에 입장했습니다</string>
+    <string name="login">로그인</string>
+    <string name="register">회원 가입</string>
+    <string name="user_info">유저 정보</string>
 </resources>

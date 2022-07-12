@@ -1,4 +1,4 @@
-package com.chajun.madcamp.ui.main;
+package com.chajun.madcamp.ui.room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,10 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.config.IntentKey;
 import com.chajun.madcamp.data.AppData;
-import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.data.model.request.AddRoomRequest;
 import com.chajun.madcamp.data.model.response.AddRoomResponse;
 import com.chajun.madcamp.data.repository.Repository;
+import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.ui.game.GameActivity;
 import com.chajun.madcamp.util.Util;
 

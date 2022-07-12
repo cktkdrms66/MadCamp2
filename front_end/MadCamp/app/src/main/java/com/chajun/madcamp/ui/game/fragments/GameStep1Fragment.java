@@ -208,7 +208,6 @@ public class GameStep1Fragment extends Fragment {
                     } else {
                         Toast.makeText(GameActivity.context, R.string.join_enemy_2, Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
             System.out.println("build deck start!");

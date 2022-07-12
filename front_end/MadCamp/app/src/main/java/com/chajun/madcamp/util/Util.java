@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
 import com.chajun.madcamp.R;
-import com.chajun.madcamp.ui.main.AddRoomActivity;
 
 import org.json.JSONArray;
 

@@ -66,15 +66,15 @@ public enum Move {
                 case V:
                     return com.chajun.madcamp.R.drawable.icon_spock_expand;
                 case MR:
-                    return com.chajun.madcamp.R.drawable.icon_mega_rock;
+                    return com.chajun.madcamp.R.drawable.icon_mega_rock_expand;
                 case MS:
-                    return com.chajun.madcamp.R.drawable.icon_mega_scissor;
+                    return com.chajun.madcamp.R.drawable.icon_mega_scissor_expand;
                 case MP:
-                    return com.chajun.madcamp.R.drawable.icon_mega_paper;
+                    return com.chajun.madcamp.R.drawable.icon_mega_paper_expand;
                 case ML:
-                    return com.chajun.madcamp.R.drawable.icon_mega_lizard;
+                    return com.chajun.madcamp.R.drawable.icon_mega_lizard_expand;
                 case MV:
-                    return com.chajun.madcamp.R.drawable.icon_mega_spock;
+                    return com.chajun.madcamp.R.drawable.icon_mega_spock_expand;
                 default:
                     return 0;
             }

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:gravity="center"
+        android:background="@color/purple_500"
         android:orientation="horizontal">
 
         <TextView
@@ -21,7 +22,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/random_match_start"
-            android:textColor="#673AB7"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
     </LinearLayout>

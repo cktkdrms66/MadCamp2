@@ -420,8 +420,8 @@ public class GameStep2Fragment extends Fragment {
                         public void run() {
                             //딜레이 후 시작할 코드 작성
                             System.out.println("next turn!!");
-                            enemyMoveImg.setImageResource(R.drawable.questiomark);
-                            myMoveImg.setImageResource(R.drawable.questiomark);
+                            enemyMoveImg.setImageResource(R.drawable.icon_unknown);
+                            myMoveImg.setImageResource(R.drawable.icon_unknown);
                             GameInfo.getInstance().socket.emit(SocketMsg.NEXT_TURN);
 
                         }

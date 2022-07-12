@@ -58,8 +58,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/icon_room_list"/>
 
                 <TextView
@@ -94,8 +94,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/icon_create_room"/>
 
                 <TextView
@@ -130,8 +130,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/icon_rank_list"/>
 
                 <TextView
@@ -166,8 +166,8 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:layout_width="75dp"
-                    android:layout_height="75dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/icon_my_info"/>
 
                 <TextView

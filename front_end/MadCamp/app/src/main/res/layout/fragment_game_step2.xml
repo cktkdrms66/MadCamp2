@@ -162,7 +162,7 @@
             android:id="@+id/game_step2_img_move_enemy"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/questiomark" />
+            android:src="@drawable/icon_unknown" />
     </LinearLayout>
 
     <LinearLayout
@@ -263,7 +263,7 @@
             android:id="@+id/game_step2_img_move_mine"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/questiomark"
+            android:src="@drawable/icon_unknown"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -28,10 +28,12 @@ import io.socket.emitter.Emitter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FragmentManager fragmentManager = getSupportFragmentManager();
-    private HomeFragment homeFragment = new HomeFragment();
-    private RoomListFragment roomListFragment = new RoomListFragment();
-    private RankListFragment rankListFragment = new RankListFragment();
+    private View randomMatchBtn;
+    private View myInfoBtn;
+    private View roomListBtn;
+    private View rankListBtn;
+    private View makeRoomBtn;
+
 
     private BottomNavigationView mainBottomNav;
 

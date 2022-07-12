@@ -3,6 +3,7 @@ package com.chajun.madcamp.adapters;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -160,9 +161,13 @@ public class GameHistoryAdapter extends RecyclerView.Adapter<GameHistoryAdapter.
             ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setImageResource(guestUnusedMoves.get(i).getDrawableId(gameHistory.getGameType() == GameType.E));
 
             ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.unused, context.getTheme()));
+
             ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.unused_bg);
             ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setBorderColor(context.getResources().getColor(R.color.unused, context.getTheme()));
             ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setCircleBackgroundColorResource(R.color.unused_bg);
+
+            ((CircleImageView) hostMoveView.findViewById(R.id.item_move_civ_move)).setColorFilter(Color.parseColor("#BDBDBD"), PorterDuff.Mode.MULTIPLY);
+            ((CircleImageView) guestMoveView.findViewById(R.id.item_move_civ_move)).setColorFilter(Color.parseColor("#BDBDBD"), PorterDuff.Mode.MULTIPLY);
 
             holder.hostLayout.addView(hostMoveView);
             holder.guestLayout.addView(guestMoveView);

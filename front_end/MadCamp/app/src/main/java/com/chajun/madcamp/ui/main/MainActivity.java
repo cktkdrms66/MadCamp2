@@ -10,16 +10,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.config.Constant;
 import com.chajun.madcamp.config.IntentKey;
+import com.chajun.madcamp.config.SharedPrefKey;
 import com.chajun.madcamp.data.AppData;
 import com.chajun.madcamp.data.model.request.RandomMatchRequest;
 import com.chajun.madcamp.data.model.response.RandomMatchResponse;
 import com.chajun.madcamp.data.repository.Repository;
 import com.chajun.madcamp.enums.GameType;
 import com.chajun.madcamp.ui.game.GameActivity;
+import com.chajun.madcamp.ui.login.LoginActivity;
 import com.chajun.madcamp.ui.room.AddRoomActivity;
 import com.chajun.madcamp.ui.room.RoomListActivity;
 import com.chajun.madcamp.ui.userinfo.RankListActivity;
 import com.chajun.madcamp.ui.userinfo.UserInfoActivity;
+import com.chajun.madcamp.util.Util;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private View roomListBtn;
     private View rankListBtn;
     private View createRoomBtn;
+
+    private View logoutBtn;
 
     public static Context context;
 
@@ -52,6 +57,18 @@ public class MainActivity extends AppCompatActivity {
         roomListBtn = findViewById(R.id.main_card_room_list);
         rankListBtn = findViewById(R.id.main_card_rank_list);
         createRoomBtn = findViewById(R.id.main_card_create_room);
+        logoutBtn = findViewById(R.id.logout);
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Util.setString(context, SharedPrefKey.EMAIL, "");
+                Util.setString(context, SharedPrefKey.PASSWORD, "");
+                Util.setString(context, SharedPrefKey.USER_NAME, "");
+
+                startActivity(new Intent(context, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     private void setBtns() {

@@ -46,6 +46,7 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:paddingStart="6dp"
+                android:layout_gravity="center"
                 android:paddingEnd="3dp" />
 
             <LinearLayout
@@ -55,6 +56,7 @@
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:paddingStart="6dp"
+                android:layout_gravity="center"
                 android:paddingEnd="3dp" />
 
         </LinearLayout>

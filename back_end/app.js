@@ -65,7 +65,7 @@ router.post(`/room/add`, asyncHandler(async (req, res, next)  => {
 
 router.get(`/room/list`, asyncHandler(async (req, res, next) => {
     try {
-        const sql = `SELECT room.id AS id, room_number, title, num_turns, num_moves, game_type, state, locked, user.name AS host_name FROM room JOIN user ON room.host_id = user.id WHERE hidden = 0 ORDER BY room_number`;
+        const sql = `SELECT room.id AS id, room_number, title, num_turns, num_moves, game_type, state, locked, user.name AS host_name, user.id AS host_id FROM room JOIN user ON room.host_id = user.id WHERE hidden = 0 ORDER BY room_number`;
         const [result] = await con.promise().query(sql);
         
         res.send(result);
@@ -82,9 +82,9 @@ router.post(`/room/remove`, asyncHandler(async (req, res, next) => {
         const param = {id: req.body.id}
         const [result] = await con.promise().query(sql, param);
         
-        res.send(result); // TODO: What should be sent? Change console.log as well
+        res.send(`{success: 1}`);
         
-        console.log(result);
+        console.log(`/room/remove: Successfully removed a room.`);
     } catch(err) {
         next(err);
     }
@@ -322,7 +322,7 @@ router.post(`/game/complete`, asyncHandler(async (req, res, next) => {
 
         // Modify guest wins, losses, rating
         const sql5 = `UPDATE user SET ? WHERE id = ${req.body.guest_id}`;
-        const param5 = {wins: result2[0].wins + (req.body.game_result == -1 ? 1 : 0), losses: result2[0].losses + (req.body.game_result == 1 ? 1 : 0), rating: result2[0].rating - req.body.host_rating_change};
+        const param5 = {wins: result4[0].wins + (req.body.game_result == -1 ? 1 : 0), losses: result4[0].losses + (req.body.game_result == 1 ? 1 : 0), rating: result4[0].rating - req.body.host_rating_change};
         const [result5] = await con.promise().query(sql5, param5);
 
         console.log(`/game/complete: Modifying guest info to ${result4[0].wins + (req.body.game_result == -1 ? 1 : 0)} wins, ${result4[0].losses + (req.body.game_result == 1 ? 1 : 0)} losses, and rating of ${result4[0].rating - req.body.host_rating_change}.`);
@@ -443,7 +443,7 @@ io.on("connection", (socket) => {
                 // Sleep for 63 seconds (client 60 seconds)
                 // TODO: Change this
                 // await sleep(63);
-                await sleep(11);
+                await sleep(22);
                 console.log(`Socket-joinRoom: Awoke from sleep.`);
 
                 roomMapObj[userMapObj[socket.id]].ready = 0;
@@ -477,11 +477,6 @@ io.on("connection", (socket) => {
         console.log(`Socket-nextTurn: Callback reached.`);
         roomMapObj[userMapObj[socket.id]].ready += 1;
 
-        if (roomMapObj[userMapObj[socket.id]].ready == 1 && roomMapObj[userMapObj[socket.id]].cur_turn == roomMapObj[userMapObj[socket.id]].num_turns) {
-            delete userMapObj[socket.id];
-            return;
-        }
-
         if (roomMapObj[userMapObj[socket.id]].ready == 2) {
             roomMapObj[userMapObj[socket.id]].ready = 0;
 
@@ -492,7 +487,7 @@ io.on("connection", (socket) => {
 
                 (async() => {
                     // Sleep for 11 seconds (client 10 seconds)
-                    await sleep(11);
+                    await sleep(8);
                     console.log(`Socket-nextTurn: Awoke from sleep.`);
                     io.to(userMapObj[socket.id]).emit(`submitMoves`);
                     console.log(`Socket-nextTurn: submitMoves emitted to room (room id: ${userMapObj[socket.id]}).`);
@@ -509,12 +504,6 @@ io.on("connection", (socket) => {
 
                     io.to(userMapObj[socket.id]).emit(`gameComplete`, roomMapObj[userMapObj[socket.id]].guest_id, result1[0].rating, result2[0].rating);
                     console.log(`Socket-nextTurn: gameComplete emitted to room (room id: ${userMapObj[socket.id]}).`);
-
-                    // TODO: Remove me
-                    console.log(JSON.stringify(roomMapObj));
-
-                    delete roomMapObj[userMapObj[socket.id]];
-                    delete userMapObj[socket.id];
                 })();
             }
         }
@@ -541,6 +530,25 @@ io.on("connection", (socket) => {
     });
     
     socket.on(`disconnect`, () => {
-        console.log(`Socket-disconnect: Callback reached: Socket (socket id: ${socket.id}) is disconnected.`);
+        (async() => {
+            const sql = `DELETE FROM room WHERE id = ? AND state = "W"`;
+            const param = [userMapObj[socket.id]];
+            const [result] = await con.promise().query(sql, param);
+
+            console.log(`Socket-disconnect: Room (room id: ${userMapObj[socket.id]}) deleted.`);
+
+            roomMapObj[userMapObj[socket.id]].ready += 1;
+
+            console.log(result);
+            if (roomMapObj[userMapObj[socket.id]].ready == 2 || result.affectedRows > 0) {
+                delete roomMapObj[userMapObj[socket.id]];
+            }
+            delete userMapObj[socket.id];
+
+            // TODO: Remove me
+            console.log(JSON.stringify(roomMapObj));
+            console.log(JSON.stringify(userMapObj));
+            console.log(`Socket-disconnect: Callback reached: Socket (socket id: ${socket.id}) is disconnected.`);
+        })();
     });
 });

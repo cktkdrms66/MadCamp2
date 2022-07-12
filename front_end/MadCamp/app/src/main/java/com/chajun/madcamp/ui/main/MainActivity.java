@@ -1,29 +1,29 @@
 package com.chajun.madcamp.ui.main;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.chajun.madcamp.R;
 import com.chajun.madcamp.config.Constant;
-import com.chajun.madcamp.ui.main.fragments.HomeFragment;
-import com.chajun.madcamp.ui.main.fragments.RankListFragment;
-import com.chajun.madcamp.ui.main.fragments.RoomListFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.kakao.sdk.common.KakaoSdk;
+import com.chajun.madcamp.config.IntentKey;
+import com.chajun.madcamp.data.AppData;
+import com.chajun.madcamp.data.model.request.RandomMatchRequest;
+import com.chajun.madcamp.data.model.response.RandomMatchResponse;
+import com.chajun.madcamp.data.repository.Repository;
+import com.chajun.madcamp.enums.GameType;
+import com.chajun.madcamp.ui.game.GameActivity;
+import com.chajun.madcamp.ui.room.AddRoomActivity;
+import com.chajun.madcamp.ui.room.RoomListActivity;
+import com.chajun.madcamp.ui.userinfo.RankListActivity;
+import com.chajun.madcamp.ui.userinfo.UserInfoActivity;
 
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,10 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private View myInfoBtn;
     private View roomListBtn;
     private View rankListBtn;
-    private View makeRoomBtn;
-
-
-    private BottomNavigationView mainBottomNav;
+    private View createRoomBtn;
 
     public static Context context;
 
@@ -47,37 +44,86 @@ public class MainActivity extends AppCompatActivity {
         context = this;
 
         initView();
-        setBottomNav();
-
+        setBtns();
 
     }
 
     private void initView() {
-        mainBottomNav = findViewById(R.id.main_bottom_nav);
+        randomMatchBtn = findViewById(R.id.main_button_random_match);
+        myInfoBtn = findViewById(R.id.main_button_my_info);
+        roomListBtn = findViewById(R.id.main_button_room_list);
+        rankListBtn = findViewById(R.id.main_button_rank_list);
+        createRoomBtn = findViewById(R.id.main_button_create_room);
     }
 
-    private void setBottomNav() {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.main_frame_layout, homeFragment).commitAllowingStateLoss();
-
-        mainBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @SuppressLint("NonConstantResourceId")
+    private void setBtns() {
+        randomMatchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                switch (item.getItemId()) {
-                    case R.id.menu_home:
-                        transaction.replace(R.id.main_frame_layout, homeFragment).commitAllowingStateLoss();
-                        break;
-                    case R.id.menu_room:
-                        transaction.replace(R.id.main_frame_layout, roomListFragment).commitAllowingStateLoss();
-                        break;
-                    case R.id.menu_rank:
-                        transaction.replace(R.id.main_frame_layout, rankListFragment).commitAllowingStateLoss();
-                        break;
+            public void onClick(View view) {
+                startRandomMatch();
+            }
+        });
 
+        myInfoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+                intent.putExtra(IntentKey.USER_ID, AppData.userId);
+                startActivity(intent);
+            }
+        });
+
+        roomListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RoomListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        rankListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, RankListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        createRoomBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddRoomActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void startRandomMatch() {
+        Repository.getInstance().randomMatch(new RandomMatchRequest(AppData.userId), new Callback<RandomMatchResponse>() {
+            @Override
+            public void onResponse(Call<RandomMatchResponse> call, Response<RandomMatchResponse> response) {
+                if (response.isSuccessful()) {
+
+                    boolean isHost = response.body().getIsHost() == 1;
+                    int roomId = response.body().getId();
+
+                    System.out.println("is Host : " + isHost);
+                    System.out.println("roomId : " + roomId);
+
+
+                    Intent intent = new Intent(MainActivity.context, GameActivity.class);
+                    intent.putExtra(IntentKey.ROOM_ID, roomId);
+                    intent.putExtra(IntentKey.IS_EXPANDED, Constant.DEFAULT_GAME_TYPE == GameType.E);
+                    intent.putExtra(IntentKey.NUM_TURNS, Constant.DEFAULT_NUM_TURN);
+                    intent.putExtra(IntentKey.NUM_MOVES, Constant.DEFAULT_NUM_DECK);
+                    intent.putExtra(IntentKey.IS_HOST, isHost);
+                    startActivity(intent);
                 }
-                return true;
+            }
+
+            @Override
+            public void onFailure(Call<RandomMatchResponse> call, Throwable t) {
+                System.out.println("fail!!!!");
             }
         });
     }

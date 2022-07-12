@@ -7,6 +7,9 @@
     <string name="menu_rank">Rank</string>
     <string name="my_info">내 정보</string>
     <string name="random_match_start">랜덤 매치</string>
+    <string name="room_list">방 리스트</string>
+    <string name="create_room">방 만들기</string>
+    <string name="rank_list">랭킹</string>
     <!--TODO: change this once DB supports Korean-->
     <string name="add_room_title_0">아무나</string>
     <string name="add_room_title_1">드루와</string>

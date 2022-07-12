@@ -1,16 +1,12 @@
-package com.chajun.madcamp.ui.main.fragments;
+package com.chajun.madcamp.ui.room;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -19,8 +15,6 @@ import com.chajun.madcamp.R;
 import com.chajun.madcamp.adapters.RoomAdapter;
 import com.chajun.madcamp.data.model.response.Room;
 import com.chajun.madcamp.data.repository.Repository;
-import com.chajun.madcamp.ui.main.AddRoomActivity;
-import com.chajun.madcamp.ui.main.MainActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -29,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RoomListFragment extends Fragment {
+public class RoomListActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -37,36 +31,38 @@ public class RoomListFragment extends Fragment {
 
     private RoomAdapter adapter;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_room_list, container, false);
 
-        initViews(v);
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_room_list);
+
+        initViews();
         setRecyclerView();
         setAddButton();
         setSwipeRefreshLayout();
 
         refreshRoomList();
 
-        return v;
+
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
+    protected void onResume() {
+        super.onResume();
 
         refreshRoomList();
     }
 
-    private void initViews(View v) {
-        swipeRefreshLayout = v.findViewById(R.id.room_list_swipe_layout);
-        recyclerView = v.findViewById(R.id.room_list_recyclerview);
-        fab = v.findViewById(R.id.room_list_fab_add);
+    private void initViews() {
+        swipeRefreshLayout = findViewById(R.id.room_list_swipe_layout);
+        recyclerView = findViewById(R.id.room_list_recyclerview);
+        fab = findViewById(R.id.room_list_fab_add);
     }
 
     private void setRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity(), RecyclerView.VERTICAL, false)) ; // 상하 스크롤r
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, RecyclerView.VERTICAL, false)) ; // 상하 스크롤r
 
         adapter = new RoomAdapter();
         recyclerView.setAdapter(adapter);
@@ -84,14 +80,14 @@ public class RoomListFragment extends Fragment {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(MainActivity.context, R.string.list_refresh_error, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RoomListActivity.this, R.string.list_refresh_error, Toast.LENGTH_SHORT).show();
                 }
 
             }
 
             @Override
             public void onFailure(Call<List<Room>> call, Throwable t) {
-                Toast.makeText(MainActivity.context, R.string.list_refresh_error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(RoomListActivity.this, R.string.list_refresh_error, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -99,7 +95,7 @@ public class RoomListFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.context, AddRoomActivity.class));
+                startActivity(new Intent(RoomListActivity.this, AddRoomActivity.class));
             }
         });
     }
@@ -113,5 +109,4 @@ public class RoomListFragment extends Fragment {
             }
         });
     }
-
 }

@@ -38,7 +38,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="40dp"
-            android:text="@string/random_match_start" />
+            android:text="@string/room_list" />
 
         <Button
             android:id="@+id/main_button_create_room"
@@ -50,7 +50,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/random_match_start" />
+            android:text="@string/create_room" />
 
         <Button
             android:id="@+id/main_button_my_info"
@@ -62,7 +62,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="40dp"
-            android:text="@string/random_match_start" />
+            android:text="@string/my_info" />
 
         <Button
             android:id="@+id/main_button_rank_list"
@@ -74,19 +74,8 @@
             android:layout_marginStart="40dp"
             android:layout_marginBottom="40dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/random_match_start" />
+            android:text="@string/rank_list" />
 
-        <Button
-            android:id="@+id/main_button_6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="40dp"
-            android:layout_marginEnd="40dp"
-            android:text="@string/random_match_start" />
 
     </GridLayout>
 

@@ -5,53 +5,38 @@
       <map>
         <entry key="../../../../../../../layout/custom_preview.xml" value="0.10416666666666667" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.151" />
-        <entry key="app/src/main/res/drawable/ic__538724641.xml" value="0.2245" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.151" />
-        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2245" />
-        <entry key="app/src/main/res/drawable/icon_mega_lizard_expand.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_mega_paper.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_mega_paper_expand.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_mega_rock.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_mega_rock_expand.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_mega_scissor.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_mega_scissor_expand.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_mega_spock_expand.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_my_info.xml" value="0.2245" />
-        <entry key="app/src/main/res/drawable/icon_paper.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_ranking.xml" value="0.2245" />
+        <entry key="app/src/main/res/drawable/icon_lose.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/icon_mega_lizard_expand.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/icon_mega_paper_expand.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/icon_mega_scissor_expand.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/icon_mega_spock_expand.xml" value="0.137" />
+        <entry key="app/src/main/res/drawable/icon_my_info.xml" value="0.137" />
         <entry key="app/src/main/res/drawable/icon_rock.xml" value="0.151" />
-        <entry key="app/src/main/res/drawable/icon_rock_expand.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_room_add.xml" value="0.2245" />
-        <entry key="app/src/main/res/drawable/icon_room_list.xml" value="0.2245" />
-        <entry key="app/src/main/res/drawable/icon_scissor.xml" value="0.2245" />
-        <entry key="app/src/main/res/drawable/icon_scissor_expand.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_spock_expand.xml" value="0.3215" />
-        <entry key="app/src/main/res/drawable/icon_tie.xml" value="0.3215" />
+        <entry key="app/src/main/res/drawable/icon_tie.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/menu_item_color.xml" value="0.131" />
-        <entry key="app/src/main/res/font/leferi.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_add_room.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_game.xml" value="0.3052536231884058" />
-        <entry key="app/src/main/res/layout/activity_game_step1.xml" value="0.16924031575520834" />
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="app/src/main/res/layout/activity_rank_list.xml" value="0.3691123188405797" />
-        <entry key="app/src/main/res/layout/activity_register.xml" value="0.40260416666666665" />
-        <entry key="app/src/main/res/layout/activity_room_list.xml" value="0.3691123188405797" />
-        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/activity_add_room.xml" value="0.40160642570281124" />
+        <entry key="app/src/main/res/layout/activity_game.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_game_step1.xml" value="0.2558324178059896" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.32860972086588547" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3182291666666667" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.36486486486486486" />
+        <entry key="app/src/main/res/layout/activity_room_list.xml" value="0.23703703703703705" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3271794871794872" />
         <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.32455089820359284" />
-        <entry key="app/src/main/res/layout/big_item_move.xml" value="0.3052536231884058" />
-        <entry key="app/src/main/res/layout/dialog_game_result.xml" value="0.75" />
-        <entry key="app/src/main/res/layout/dialog_password.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_game_step1.xml" value="0.20498614958448755" />
-        <entry key="app/src/main/res/layout/fragment_game_step2.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/big_item_move.xml" value="0.1750030517578125" />
+        <entry key="app/src/main/res/layout/dialog_game_result.xml" value="0.5204123074891137" />
+        <entry key="app/src/main/res/layout/dialog_password.xml" value="0.5051661173502604" />
+        <entry key="app/src/main/res/layout/fragment_game_step1.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/layout/fragment_game_step2.xml" value="0.36953876087966475" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2872029622395833" />
         <entry key="app/src/main/res/layout/fragment_rank_list.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/fragment_room.xml" value="0.15625" />
         <entry key="app/src/main/res/layout/fragment_room_list.xml" value="0.27570648193359376" />
-        <entry key="app/src/main/res/layout/item_move.xml" value="0.41953531901041674" />
-        <entry key="app/src/main/res/layout/list_item_game_history.xml" value="0.3374918619791667" />
-        <entry key="app/src/main/res/layout/list_item_game_history_2.xml" value="0.21770833333333334" />
-        <entry key="app/src/main/res/layout/list_item_random_match.xml" value="0.4036458333333333" />
+        <entry key="app/src/main/res/layout/item_move.xml" value="0.654369608561198" />
+        <entry key="app/src/main/res/layout/list_item_game_history.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_item_game_history_2.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/layout/list_item_random_match.xml" value="0.4383544921875" />
         <entry key="app/src/main/res/layout/list_item_rank_list.xml" value="0.338885498046875" />
         <entry key="app/src/main/res/layout/list_item_room_list.xml" value="0.37881368001302085" />
         <entry key="app/src/main/res/menu/main_menu_bottom.xml" value="0.3182291666666667" />

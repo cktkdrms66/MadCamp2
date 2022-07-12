@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PrimitiveIterator;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -232,6 +233,7 @@ public class GameStep2Fragment extends Fragment {
 
                     if (isBoosted) {
                         boostingCountTxt.setText("1");
+                        changeImgOriginal(myMoveImg);
                     }
 
                     isBoosted = false;
@@ -250,10 +252,12 @@ public class GameStep2Fragment extends Fragment {
                     System.out.println(currentMyMove);
                     boostingCountTxt.setText("1");
                     currentMyMove = Move.getOriginalMove(currentMyMove);
+                    changeImgOriginal(myMoveImg);
                 } else {
                     boostingCountTxt.setText("0");
                     System.out.println(currentMyMove);
                     currentMyMove = Move.getBoostedMove(currentMyMove);
+                    changeImgSizeBigger(myMoveImg);
                 }
 
                 isBoosted = !isBoosted;
@@ -296,6 +300,16 @@ public class GameStep2Fragment extends Fragment {
 
         }
     };
+
+    private void changeImgSizeBigger(ImageView imageView) {
+        imageView.getLayoutParams().height += 150;
+        imageView.getLayoutParams().width += 150;
+    }
+
+    private void changeImgOriginal(ImageView imageView) {
+        imageView.getLayoutParams().height -= 150;
+        imageView.getLayoutParams().width -= 150;
+    }
 
     private Emitter.Listener onStartTurn = new Emitter.Listener() {
         @Override
@@ -384,14 +398,15 @@ public class GameStep2Fragment extends Fragment {
 
             GameInfo.getInstance().enemyMoveCounts[currentEnemyMove.getOriginalIndex()]--;
 
-
-            //TODO 갔다와서 메가 보자기 가위 ㄹㄷㅈㄹㄷㅈ
             GameActivity.context.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     setCountClickable(false);
                     enemyMoveImg.setImageResource(currentEnemyMove.getDrawableId(GameInfo.getInstance().gameType == GameType.E));
 
+                    if (currentEnemyMove.index >= 5) {
+                        changeImgSizeBigger(enemyMoveImg);
+                    }
 
                     int gameResultVal = (int) args[2];
                     if (myIndex == 1) {
@@ -410,9 +425,6 @@ public class GameStep2Fragment extends Fragment {
                     //currentTurnPerTotalTxt.setText(Util.getTurnPerTotal(GameInfo.getInstance().currentTurn,
                             //GameInfo.getInstance().totalTurn));
 
-                    currentMyMove = null;
-                    currentEnemyMove = null;
-
                     Toast.makeText(GameActivity.context, GameResult.getGameResult(gameResultVal).getStringId(), Toast.LENGTH_SHORT).show();
                     setTexts();
                     new Handler().postDelayed(new Runnable() {
@@ -422,7 +434,21 @@ public class GameStep2Fragment extends Fragment {
                             System.out.println("next turn!!");
                             enemyMoveImg.setImageResource(R.drawable.icon_unknown);
                             myMoveImg.setImageResource(R.drawable.icon_unknown);
+
+                            if (currentMyMove.index >= 5) {
+                                changeImgOriginal(myMoveImg);
+
+                            }
+
+                            if (currentEnemyMove.index >= 5) {
+                                changeImgOriginal(enemyMoveImg);
+                            }
+
                             GameInfo.getInstance().socket.emit(SocketMsg.NEXT_TURN);
+
+
+                            currentMyMove = null;
+                            currentEnemyMove = null;
 
                         }
                     }, 4000);

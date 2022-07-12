@@ -1,5 +1,7 @@
 package com.chajun.madcamp.enums;
 
+import com.chajun.madcamp.R;
+
 //L V
 public enum Move {
     R(0), S(1), P(2), L(3), V(4), MR(5), MS(6), MP(7), ML(8), MV(9);

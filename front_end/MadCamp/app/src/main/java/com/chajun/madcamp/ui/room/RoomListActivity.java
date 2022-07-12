@@ -27,7 +27,6 @@ public class RoomListActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
 
     private RoomAdapter adapter;
 
@@ -40,7 +39,6 @@ public class RoomListActivity extends AppCompatActivity {
 
         initViews();
         setRecyclerView();
-        setAddButton();
         setSwipeRefreshLayout();
 
         refreshRoomList();
@@ -58,7 +56,6 @@ public class RoomListActivity extends AppCompatActivity {
     private void initViews() {
         swipeRefreshLayout = findViewById(R.id.room_list_swipe_layout);
         recyclerView = findViewById(R.id.room_list_recyclerview);
-        fab = findViewById(R.id.room_list_fab_add);
     }
 
     private void setRecyclerView() {
@@ -88,14 +85,6 @@ public class RoomListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Room>> call, Throwable t) {
                 Toast.makeText(RoomListActivity.this, R.string.list_refresh_error, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void setAddButton() {
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RoomListActivity.this, AddRoomActivity.class));
             }
         });
     }

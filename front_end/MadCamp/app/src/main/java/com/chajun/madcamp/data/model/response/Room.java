@@ -16,6 +16,9 @@ public class Room {
     @SerializedName("num_turns")
     int numTurns;
 
+    @SerializedName("host_id")
+    int hostId;
+
     @SerializedName("game_type")
     String gameType;
 
@@ -26,6 +29,14 @@ public class Room {
 
     int locked;
     int hidden;
+
+    public int getHostId() {
+        return hostId;
+    }
+
+    public void setHostId(int hostId) {
+        this.hostId = hostId;
+    }
 
     public int getId() {
         return id;

@@ -17,16 +17,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chajun.madcamp.R;
+import com.chajun.madcamp.config.Constant;
 import com.chajun.madcamp.config.IntentKey;
 import com.chajun.madcamp.data.AppData;
 import com.chajun.madcamp.data.model.request.JoinRoomRequest;
+import com.chajun.madcamp.data.model.request.RandomMatchRequest;
 import com.chajun.madcamp.data.model.response.JoinRoomResponse;
+import com.chajun.madcamp.data.model.response.RandomMatchResponse;
 import com.chajun.madcamp.data.repository.Repository;
 import com.chajun.madcamp.enums.GameState;
 import com.chajun.madcamp.data.model.response.Room;
 import com.chajun.madcamp.enums.GameType;
+import com.chajun.madcamp.enums.RoomViewType;
 import com.chajun.madcamp.ui.game.GameActivity;
 import com.chajun.madcamp.ui.main.MainActivity;
+import com.chajun.madcamp.ui.userinfo.UserInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder>{
+public class RoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private List<Room> roomList;
 
@@ -46,78 +51,114 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
     }
 
     public void setItems(List<Room> items) {
-        roomList = items;
+        roomList = new ArrayList<>();
+        roomList.add(new Room());
+        roomList.addAll(items);
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public RoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.list_item_room_list, parent, false);
-        return new RoomViewHolder(context, view);
+        if (viewType == RoomViewType.RANDOM.val) {
+            View view = inflater.inflate(R.layout.list_item_random_match, parent, false);
+            return new RandomMatchViewHolder(context, view);
+        } else {
+            View view = inflater.inflate(R.layout.list_item_room_list, parent, false);
+            return new RoomViewHolder(context, view);
+        }
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull RoomViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Room room = roomList.get(holder.getAdapterPosition());
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        System.out.println(room.getHidden());
+        if (position == 0) {
+            RandomMatchViewHolder viewHolder = ((RandomMatchViewHolder) holder);
+            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-        holder.roomNumberTxt.setText(String.valueOf(room.getRoomNumber()));
-        holder.titleTxt.setText(room.getTitle());
-        holder.gameTypeTxt.setText(room.getNumTurns() + "T " + room.getNumMoves() + "D");
-        holder.hostNameTxt.setText(room.getHostName());
-
-        if (room.isLocked()) {
-            holder.lockImg.setImageResource(R.drawable.locked);
+                }
+            });
         } else {
-            holder.lockImg.setImageResource(R.drawable.unlocked);
-        }
+            Room room = roomList.get(holder.getAdapterPosition());
 
-        if (room.getState() == GameState.P) {
-            holder.background.setBackgroundColor(Color.GRAY);
-        } else {
-            holder.background.setBackgroundColor(Color.WHITE);
-        }
+            System.out.println(room.getHidden());
 
-        holder.background.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context context = holder.background.getContext();
-                if (room.getState() == GameState.P) {
-                    Toast.makeText(context, R.string.prevent_join_room, Toast.LENGTH_SHORT).show();
-                } else {
-                    if (room.isLocked()) {
-                        Dialog dialog;
-                        dialog = new Dialog(MainActivity.context);
-                        dialog.setContentView(R.layout.dialog_password);
+            RoomViewHolder viewHolder = ((RoomViewHolder) holder);
 
-                        dialog.findViewById(R.id.dialog_password_btn_confirm).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                String password = ((EditText)dialog.findViewById(R.id.dialog_password_edit_txt)).getText().toString();
-                                joinRoom(holder.itemView.getContext(), room, new JoinRoomRequest(room.getId(), AppData.userId, password));
-                                dialog.cancel();
-                            }
-                        });
+            viewHolder.roomNumberTxt.setText(String.valueOf(room.getRoomNumber()));
+            viewHolder.titleTxt.setText(room.getTitle());
+            viewHolder.gameTypeTxt.setText(room.getNumTurns() + "T " + room.getNumMoves() + "D");
+            viewHolder.hostNameTxt.setText(room.getHostName());
 
-                        dialog.findViewById(R.id.dialog_password_btn_cancel).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialog.cancel();
-                            }
-                        });
-                        dialog.show();
+            viewHolder.hostNameTxt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(viewHolder.hostNameTxt.getContext(), UserInfoActivity.class);
+                    intent.putExtra(IntentKey.USER_ID, room.getHostId());
+                    viewHolder.hostNameTxt.getContext().startActivity(intent);
+                }
+            });
 
+            if (room.isLocked()) {
+                viewHolder.lockImg.setImageResource(R.drawable.locked);
+            } else {
+                viewHolder.lockImg.setImageResource(R.drawable.unlocked);
+            }
+
+            if (room.getState() == GameState.P) {
+                viewHolder.background.setBackgroundColor(Color.GRAY);
+            } else {
+                viewHolder.background.setBackgroundColor(Color.WHITE);
+            }
+
+            viewHolder.background.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Context context = viewHolder.background.getContext();
+                    if (room.getState() == GameState.P) {
+                        Toast.makeText(context, R.string.prevent_join_room, Toast.LENGTH_SHORT).show();
                     } else {
-                        joinRoom(holder.itemView.getContext(), room, new JoinRoomRequest(room.getId(), AppData.userId, ""));
+                        if (room.isLocked()) {
+                            Dialog dialog;
+                            dialog = new Dialog(MainActivity.context);
+                            dialog.setContentView(R.layout.dialog_password);
+
+                            dialog.findViewById(R.id.dialog_password_btn_confirm).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    String password = ((EditText)dialog.findViewById(R.id.dialog_password_edit_txt)).getText().toString();
+                                    joinRoom(viewHolder.itemView.getContext(), room, new JoinRoomRequest(room.getId(), AppData.userId, password));
+                                    dialog.cancel();
+                                }
+                            });
+
+                            dialog.findViewById(R.id.dialog_password_btn_cancel).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    dialog.cancel();
+                                }
+                            });
+                            dialog.show();
+
+                        } else {
+                            joinRoom(viewHolder.itemView.getContext(), room, new JoinRoomRequest(room.getId(), AppData.userId, ""));
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) return RoomViewType.RANDOM.val;
+        else return RoomViewType.ROOM.val;
     }
 
     private void joinRoom(Context context, Room room, JoinRoomRequest request) {
@@ -154,6 +195,49 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         return roomList.size();
     }
 
+    public class RandomMatchViewHolder extends RecyclerView.ViewHolder {
+        RandomMatchViewHolder(Context context, View itemView) {
+            super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startRandomMatch();
+                }
+            });
+        }
+
+        private void startRandomMatch() {
+            Repository.getInstance().randomMatch(new RandomMatchRequest(AppData.userId), new Callback<RandomMatchResponse>() {
+                @Override
+                public void onResponse(Call<RandomMatchResponse> call, Response<RandomMatchResponse> response) {
+                    if (response.isSuccessful()) {
+
+                        boolean isHost = response.body().getIsHost() == 1;
+                        int roomId = response.body().getId();
+
+                        System.out.println("is Host : " + isHost);
+                        System.out.println("roomId : " + roomId);
+
+
+                        Intent intent = new Intent(MainActivity.context, GameActivity.class);
+                        intent.putExtra(IntentKey.ROOM_ID, roomId);
+                        intent.putExtra(IntentKey.IS_EXPANDED, Constant.DEFAULT_GAME_TYPE == GameType.E);
+                        intent.putExtra(IntentKey.NUM_TURNS, Constant.DEFAULT_NUM_TURN);
+                        intent.putExtra(IntentKey.NUM_MOVES, Constant.DEFAULT_NUM_DECK);
+                        intent.putExtra(IntentKey.IS_HOST, isHost);
+                        itemView.getContext().startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<RandomMatchResponse> call, Throwable t) {
+                    System.out.println("fail!!!!");
+                }
+            });
+        }
+    }
+
     public class RoomViewHolder extends RecyclerView.ViewHolder {
 
         TextView roomNumberTxt;
@@ -177,5 +261,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
 
 
         }
+
+
     }
 }

@@ -40,6 +40,8 @@ public class AddRoomActivity extends AppCompatActivity {
     private EditText passwordEditTxt;
     private Button addBtn;
 
+    private View backBtn;
+
     private int numTurns;
     private int numMoves;
     private GameType gameType;
@@ -60,7 +62,15 @@ public class AddRoomActivity extends AppCompatActivity {
         titleEditTxt = findViewById(R.id.add_room_edit_txt_title);
         lockedChkBox = findViewById(R.id.add_room_chk_box_password);
         passwordEditTxt = findViewById(R.id.add_room_edit_txt_password);
+        backBtn = findViewById(R.id.add_room_back);
         addBtn = findViewById(R.id.add_room_btn_add);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         int index = new Random().nextInt(4);
 

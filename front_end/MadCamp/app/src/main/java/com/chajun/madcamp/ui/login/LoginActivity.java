@@ -48,9 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        autoLogin();
-
-
         setContentView(R.layout.activity_login);
 
         System.out.println("qwejpqjweiop");

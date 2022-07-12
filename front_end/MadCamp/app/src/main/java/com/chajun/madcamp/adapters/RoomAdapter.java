@@ -196,10 +196,14 @@ public class RoomAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     public class RandomMatchViewHolder extends RecyclerView.ViewHolder {
+
+        View background;
+
         RandomMatchViewHolder(Context context, View itemView) {
             super(itemView);
+            background = itemView.findViewById(R.id.list_item_random_match_layout);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            background.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     startRandomMatch();

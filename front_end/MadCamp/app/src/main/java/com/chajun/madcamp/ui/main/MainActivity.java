@@ -28,7 +28,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private View randomMatchBtn;
     private View myInfoBtn;
     private View roomListBtn;
     private View rankListBtn;
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        randomMatchBtn = findViewById(R.id.main_button_random_match);
         myInfoBtn = findViewById(R.id.main_button_my_info);
         roomListBtn = findViewById(R.id.main_button_room_list);
         rankListBtn = findViewById(R.id.main_button_rank_list);

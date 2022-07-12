@@ -2,6 +2,7 @@ package com.chajun.madcamp.ui.userinfo;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ public class UserInfoActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private GameHistoryAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+
+    private View backBtn;
 
 
     private int userId;
@@ -71,6 +74,15 @@ public class UserInfoActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.user_info_recyclerview);
         swipeRefreshLayout = findViewById(R.id.user_info_swipe_layout);
+
+        backBtn = findViewById(R.id.user_info_back);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void setUserInfoTxts() {

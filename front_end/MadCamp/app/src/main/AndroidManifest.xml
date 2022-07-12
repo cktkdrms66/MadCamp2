@@ -47,11 +47,6 @@
         <activity android:name=".ui.userinfo.UserInfoActivity" android:exported="true"/>
         <activity android:name=".ui.login.LoginActivity" android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -60,7 +55,13 @@
         <activity android:name=".ui.room.RoomListActivity" android:exported="true"/>
         <activity android:name=".ui.userinfo.RankListActivity" android:exported="true"/>
         <activity android:name=".ui.room.AddRoomActivity" android:exported="true"/>
-        <activity android:name=".ui.room.S" android:exported="true"/>
+        <activity android:name=".ui.splash.SplashActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

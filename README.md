@@ -1,7 +1,5 @@
 # Elements
 
-![ic_launcher.png](Elements%200641281e6f7f444291238277a3235e83/ic_launcher.png)
-
 > 평범한 가위바위보로는 아쉬울 때, Elements에 도전해 보세요!
 > 
 

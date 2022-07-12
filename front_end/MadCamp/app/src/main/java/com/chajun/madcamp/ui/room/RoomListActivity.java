@@ -30,6 +30,8 @@ public class RoomListActivity extends AppCompatActivity {
 
     private RoomAdapter adapter;
 
+    private View backBtn;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,6 +58,14 @@ public class RoomListActivity extends AppCompatActivity {
     private void initViews() {
         swipeRefreshLayout = findViewById(R.id.room_list_swipe_layout);
         recyclerView = findViewById(R.id.room_list_recyclerview);
+        backBtn = findViewById(R.id.room_list_back);
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void setRecyclerView() {

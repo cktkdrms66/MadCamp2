@@ -17,9 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text=""
             android:textSize="24sp"
-            tools:text="@string/waiting" />
+            android:text="@string/waiting" />
 
         <TextView
             android:id="@+id/step1_txt_enemy_state"

@@ -10,11 +10,12 @@
         <entry key="app/src/main/res/drawable/icon_tie.xml" value="0.3215" />
         <entry key="app/src/main/res/drawable/menu_item_color.xml" value="0.131" />
         <entry key="app/src/main/res/font/leferi.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_add_room.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_add_room.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_game.xml" value="0.3052536231884058" />
         <entry key="app/src/main/res/layout/activity_game_step1.xml" value="0.16924031575520834" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3182291666666667" />
+        <entry key="app/src/main/res/layout/activity_rank_list.xml" value="0.3691123188405797" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.40260416666666665" />
         <entry key="app/src/main/res/layout/activity_room_list.xml" value="0.3691123188405797" />
         <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.32455089820359284" />

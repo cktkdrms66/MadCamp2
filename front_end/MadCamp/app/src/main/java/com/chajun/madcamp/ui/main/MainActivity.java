@@ -57,12 +57,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setBtns() {
-        randomMatchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startRandomMatch();
-            }
-        });
 
         myInfoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,33 +92,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void startRandomMatch() {
-        Repository.getInstance().randomMatch(new RandomMatchRequest(AppData.userId), new Callback<RandomMatchResponse>() {
-            @Override
-            public void onResponse(Call<RandomMatchResponse> call, Response<RandomMatchResponse> response) {
-                if (response.isSuccessful()) {
 
-                    boolean isHost = response.body().getIsHost() == 1;
-                    int roomId = response.body().getId();
-
-                    System.out.println("is Host : " + isHost);
-                    System.out.println("roomId : " + roomId);
-
-
-                    Intent intent = new Intent(MainActivity.context, GameActivity.class);
-                    intent.putExtra(IntentKey.ROOM_ID, roomId);
-                    intent.putExtra(IntentKey.IS_EXPANDED, Constant.DEFAULT_GAME_TYPE == GameType.E);
-                    intent.putExtra(IntentKey.NUM_TURNS, Constant.DEFAULT_NUM_TURN);
-                    intent.putExtra(IntentKey.NUM_MOVES, Constant.DEFAULT_NUM_DECK);
-                    intent.putExtra(IntentKey.IS_HOST, isHost);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RandomMatchResponse> call, Throwable t) {
-                System.out.println("fail!!!!");
-            }
-        });
-    }
 }

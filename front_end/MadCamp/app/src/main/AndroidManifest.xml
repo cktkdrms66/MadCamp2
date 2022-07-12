@@ -60,6 +60,7 @@
         <activity android:name=".ui.room.RoomListActivity" android:exported="true"/>
         <activity android:name=".ui.userinfo.RankListActivity" android:exported="true"/>
         <activity android:name=".ui.room.AddRoomActivity" android:exported="true"/>
+        <activity android:name=".ui.room.S" android:exported="true"/>
     </application>
 
 </manifest>

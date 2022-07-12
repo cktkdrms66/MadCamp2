@@ -5,23 +5,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.chajun.madcamp.R;
+import com.chajun.madcamp.adapters.GameHistoryAdapter;
 import com.chajun.madcamp.adapters.GameStep1ViewPagerAdapter;
 import com.chajun.madcamp.config.Constant;
 import com.chajun.madcamp.config.IntentKey;
 import com.chajun.madcamp.config.SocketMsg;
 import com.chajun.madcamp.data.AppData;
+import com.chajun.madcamp.data.model.response.GameHistory;
 import com.chajun.madcamp.data.model.response.User;
 import com.chajun.madcamp.data.repository.Repository;
 import com.chajun.madcamp.enums.GameType;
@@ -51,21 +55,28 @@ public class GameStep1Fragment extends Fragment {
 
     private TextView totalCountTxt;
 
+    private RecyclerView enemyRecyclerView;
+
     private Button plusBtn;
     private Button minusBtn;
 
     private ViewPager2 viewPager2;
+
+    private ProgressBar progress;
 
     private TextView[] moveCountTxts = new TextView[5];
 
     private int totalDeckCount = 7;
     private int totalCount = 0;
     private int[] moveCounts;
+    private int enemyId;
 
     private boolean isExpanded = false;
 
     private ViewGroup expandLayout1;
     private ViewGroup expandLayout2;
+
+    private GameHistoryAdapter adapter;
 
 
     Socket socket;
@@ -84,6 +95,7 @@ public class GameStep1Fragment extends Fragment {
         totalDeckCount = GameActivity.context.getIntent().getIntExtra(IntentKey.NUM_MOVES, 0);
 
         initViews(v);
+
         setViewPager2();
 
         setButtons();
@@ -106,6 +118,10 @@ public class GameStep1Fragment extends Fragment {
         countDownTxt = v.findViewById(R.id.step1_txt_count_down);
         viewPager2 = v.findViewById(R.id.step1_viewpager2);
 
+        progress = v.findViewById(R.id.step1_progress);
+
+        enemyRecyclerView = v.findViewById(R.id.step1_recyclerview_enemy);
+
         totalCountTxt = v.findViewById(R.id.step1_txt_total_count);
 
         plusBtn = v.findViewById(R.id.step1_plug_btn);
@@ -127,6 +143,41 @@ public class GameStep1Fragment extends Fragment {
             expandLayout2.setVisibility(View.GONE);
         }
     }
+
+    private void setEnemyRecyclerView() {
+        Toast errorToast = Toast.makeText(GameActivity.context, R.string.list_refresh_error, Toast.LENGTH_SHORT);
+
+        System.out.println("enemyId :: "+ enemyId);
+        Repository.getInstance().getGameHistoryList(enemyId, new Callback<List<GameHistory>>() {
+            @Override
+            public void onResponse(Call<List<GameHistory>> call, Response<List<GameHistory>> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        progress.setVisibility(View.GONE);
+                        enemyRecyclerView.setVisibility(View.VISIBLE);
+
+                        adapter = new GameHistoryAdapter(enemyId, GameActivity.context);
+                        enemyRecyclerView.setLayoutManager(new LinearLayoutManager(GameActivity.context, RecyclerView.VERTICAL, false));
+                        enemyRecyclerView.setAdapter(adapter);
+                        adapter.setItems(response.body());
+                    } else {
+                        errorToast.show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    errorToast.show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<GameHistory>> call, Throwable t) {
+                errorToast.show();
+            }
+        });
+
+    }
+
 
     private void setButtons() {
         plusBtn.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +265,7 @@ public class GameStep1Fragment extends Fragment {
             System.out.println("mine :: " + AppData.userId);
             System.out.println("args :: 0 " + (int) args[0]);
             System.out.println("args :: 1 " + (int) args[1]);
-            int enemyId = 0;
+            enemyId = 0;
             for (int i = 0; i < args.length; i++ ) {
                 if ((int) args[i] != AppData.userId) {
                     enemyId = (int) args[i];
@@ -225,11 +276,13 @@ public class GameStep1Fragment extends Fragment {
             Repository.getInstance().getUserInfo(enemyId, new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
+                    System.out.println("enemy id ::: " + enemyId);
                     if (response.isSuccessful()) {
                         User enemyUser = response.body();
                         enemyNameTxt.setText(enemyUser.getName());
-                        enemyStateTxt.setText(R.string.enemy_state_waiting);
                         countDownTxt.setText(String.valueOf(countDown));
+
+                        setEnemyRecyclerView();
 
                         TimerTask task = new TimerTask() {
                             @Override
@@ -256,7 +309,7 @@ public class GameStep1Fragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
-
+                    System.out.println("fail!!!!");
                 }
             });
         }

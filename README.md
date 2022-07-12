@@ -123,6 +123,9 @@ implementation "com.kakao.sdk:v2-user:2.11.0" // 카카오 로그인
 - Disconnects the socket
 </aside>
 
+# Download
+- [Download](https://drive.google.com/file/d/1ON19DNR5jX3u2jnX-KkAerNwoOcxrK6l/view?usp=sharing)
+
 # Thanks to
 
 ## Copyright

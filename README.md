@@ -1,4 +1,5 @@
 # Elements
+![ic_launcher](https://user-images.githubusercontent.com/65131817/179285551-06c3307c-41d0-48c6-ac79-d97858821b98.png)
 
 > 평범한 가위바위보로는 아쉬울 때, Elements에 도전해 보세요!
 

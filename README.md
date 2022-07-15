@@ -92,6 +92,7 @@ implementation "com.kakao.sdk:v2-user:2.11.0" // 카카오 로그인
 - 실제 게임이 진행되는 동안에는, 동시성과 양방향성에 기초하여 동작하는 게임의 특성 상 Socket.io를 이용한 소켓 통신을 이용하였습니다. 클라이언트가 서버에게 요청을 보내고, 백엔드에서는 연산을 하여 결과를 room에 전달하는 방식으로 구성하였습니다. 아래는 이를 위한 알고리즘 구상 과정 당시의 자료입니다.
 
 <aside>
+    
 - Starts: room activity
 - Connects to socket
 - Emits `"joinRoom"`, `roomId`, `userId` to socket
